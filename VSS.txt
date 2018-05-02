@@ -1,0 +1,215 @@
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384625(v=vs.85).aspx "The VSS Model"
+
+VSS is designed to address the problems described in Common Volume Backup Issues.
+
+The VSS model includes the following:
+
+    The shadow copy mechanism. VSS provides fast volume capture of the state of a disk at one instant in time—a shadow copy of the volume. This volume copy exists side by side with the live volume, and contains copies of all files on disk effectively saved and available as a separate device.
+    Consistent file state via application coordination. VSS provides a COM-based, event-driven interprocess communication mechanism that participating processes can use to determine system state with respect to backup, restore, and shadow copy (volume capture) operations. These events define stages by which applications modifying data on disk (writers) can bring all their files into a consistent state prior to the creation of the shadow copy.
+    Minimizing application downtime. The VSS shadow copy exists in parallel with a live copy of the volume to be backed up, so except for the brief period of the shadow copy's preparation and creation, an application can continue its work. The time needed to actually create a shadow copy, which occurs between Freeze and Thaw events, typically takes about one minute.
+
+    While a writer's preparation for a shadow copy, including flushing I/O and saving state (see Overview of Pre-Backup Tasks), may be nontrivial, it is significantly shorter than the time required to actually back up a volume—which for large volumes may take hours.
+    Unified interface to VSS. VSS abstracts the shadow copy mechanisms within a common interface while enabling a hardware vendor to add and manage the unique features of its own providers. Any backup application (requester) and any writer should be able to run on any disk storage system that supports the VSS interface.
+    Multivolume backup. VSS supports shadow copy sets, which are collections of shadow copies, across multiple types of disk volumes from multiple vendors. All shadow copies in a shadow copy set will be created with the same time stamp and will present the same disk state for a multivolume disk state.
+    Native shadow copy support. Beginning with Windows XP, shadow copy support is available through VSS as a native part of the Windows operating system. As long as at least one NTFS disk is present on a system, these systems can be configured to support shadow copies of all disk systems mounted on them.
+
+	
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384612(v=vs.85).aspx
+
+Applications on a system that are not VSS-aware—word processors, editors, and so on—will likely have their files left in a crash-consistent state. However, VSS-aware applications (writers) can coordinate their actions so that the state of their files in the shadow copy is well defined and consistent.
+
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384594(v=vs.85).aspx
+
+System Provider
+
+One shadow copy provider, the system provider, is supplied as a default part of a Windows operating system installation. Currently, the system provider is a particular instance of a software provider. However, this may change in the future.
+
+To maintain a "point in time" view of a volume contained in the shadow copy, the system provider uses a copy-on-write technique. Copies of the sectors on disk that have been modified (called "diffs") since the beginning of the shadow copy creation are stored in a shadow copy storage area.
+
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384596(v=vs.85).aspx
+
+A requester is any application that uses the VSS API (specifically the IVssBackupComponents interface) to request the services of the Volume Shadow Copy Service to create and manage shadow copies and shadow copy sets of one or more volumes.
+
+The most typical example of a requester (and the only one addressed in this documentation) is a VSS-aware backup/restore application, which uses shadow-copied data as a stable source for its backup operations.
+
+In addition to initiating shadow copies, backup/recover requester applications communicate with data producers (writers) to gather information on the system and to signal writers to prepare their data for backup.
+
+Life Cycle of a Requester during Backup
+---------------------------------------------------
+
+The following is a summary of the requester life cycle for backup:
+
+    Instantiate and initialize VSS API interfaces.
+    Contact writers and retrieve their information.
+    Choose data to back up.
+    Request a shadow copy of the provider.
+    Back up the data.
+    Release the interface and the shadow copy.
+
+Life Cycle of a Requester during Restore
+
+The restore life cycle does not require a shadow copy, but still requires writer cooperation:
+
+    Instantiate VSS API interfaces.
+    Initialize the requester for the restore operation by loading a stored Backup Components Document.
+    Retrieve stored Writer Metadata and Backup Components Documents.
+    Contact the writers to initialize cooperation.
+    Check for writer updates to the Backup Components Document.
+    Restore the data.
+
+	
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384993(v=vs.85).aspx
+
+Writers are applications or services that store persistent information in files on disk and that provide the names and locations of these files to requesters by using the shadow copy interface.
+
+During backup operations, writers ensure that their data is quiescent and stable—suitable for shadow copy and backup. Writers collaborate with restores by unlocking files when possible and indicating alternate locations when necessary.
+
+If no writers are present during a VSS backup operation, a shadow copy can still be created. In this case, all data on the shadow-copied volume will be in the crash-consistent state. 
+
+https://msdn.microsoft.com/en-us/library/windows/desktop/bb968827(v=vs.85).aspx "In-Box VSS Writers"
+
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384607(v=vs.85).aspx
+
+Selecting Providers
+
+A requester should select a specific provider only if it has some information about the providers available.
+
+Because this will not generally be the case, it is recommended that a requester supply GUID_NULL as a provider ID to IVssBackupComponents::AddToSnapshotSet, which allows the system to choose a provider according to the following algorithm:
+
+    If a hardware provider that supports the given volume is available, it is selected.
+    If no hardware provider is available, then if any software provider specific to the given volume is available, it is selected.
+    If no hardware provider and no software provider specific to the volumes is available, the system provider is selected.
+
+However, a requester can obtain information about available providers by using IVssBackupComponents::Query. With this information, and only if the backup application has a good understanding of the various providers, a requester can supply a valid provider ID to IVssBackupComponents::AddToSnapshotSet.
+
+Note that all volumes do not need to have the same provider.
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa381500(v=vs.85).aspx "Backups without Writer Participation"
+
+== Crash-consistent state
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384613(v=vs.85).aspx
+
+Requesters control a shadow copy's features by setting its context. This context indicates whether the shadow copy will survive the current operation, and the degree of writer/provider coordination.
+Persistence and Shadow Copy Context
+
+A shadow copy may be persistent—that is, the shadow copy is not deleted following the termination of a backup operation or the release of an IVssBackupComponents object.
+
+Persistent shadow copies require _VSS_SNAPSHOT_CONTEXT contexts of VSS_CTX_CLIENT_ACCESSIBLE, VSS_CTX_APP_ROLLBACK, or VSS_CTX_NAS_ROLLBACK. Persistent shadow copies can be made only for NTFS volumes.
+
+Nonpersistent shadow copies are created with contexts of VSS_CTX_BACKUP or VSS_CTX_FILE_SHARE_BACKUP. Nonpersistent shadow copies can be made for NTFS and non-NTFS volumes.
+
+**
+
+Shadow copy contexts that involve writers in their creation include:
+
+    VSS_CTX_APP_ROLLBACK
+    VSS_CTX_BACKUP
+    VSS_CTX_CLIENT_ACCESSIBLE_WRITERS
+
+Those that do not involve writers in their creation include:
+
+    VSS_CTX_CLIENT_ACCESSIBLE
+    VSS_CTX_FILE_SHARE_BACKUP
+    VSS_CTX_NAS_ROLLBACK
+	
+**
+
+One context can be used with both types of shadow copies, but cannot be used in creating a shadow copy:
+
+    VSS_CTX_ALL
+
+Creating a shadow copy with a context of VSS_CTX_ALL (using IVssBackupComponents::StartSnapshotSet and IVssBackupComponents::DoSnapshotSet) is not supported.
+
+Operations that support a context of VSS_CTX_ALL are the administrative operations IVssBackupComponents::Query, IVssBackupComponents::DeleteSnapshots, IVssBackupComponents::BreakSnapshotSet, and IVssBackupComponents::ExposeSnapshot.
+
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384678(v=vs.85).aspx
+
+Backup Type
+
+    The backup type specifies criteria for identifying files to be backed up. The evaluation of these criteria must be made using the VSS API.
+
+    When deciding on the type of backup to pursue and which writers to work with, requesters should examine the kinds (or schemas—see Writer Backup Schema Support) of backup operations that each of the system's writers supports. Backups under VSS can be the following types:
+
+        Full (VSS_BT_FULL)—files will be backed up regardless of their last backup date. The backup history of each file will be updated, and this type of backup can be used as the basis of an incremental or differential backup. Restoring a full backup requires only a single backup image.
+        Copy Backup (VSS_BT_COPY)—like the VSS_BT_FULL backup type, files will be backed up regardless of their last backup date. However, the backup history of each file will not be updated, and this sort of backup cannot be used as the basis of an incremental or differential backup.
+        Incremental (VSS_BT_INCREMENTAL)—the VSS API is used to ensure that only files that have been changed or added since the last full or incremental backup are to be copied to a storage medium. Restoring an incremental backup requires the original backup image and all incremental backup images made since the initial backup.
+        Differential (VSS_BT_DIFFERENTIAL)—the VSS API is used to ensure that only files that have been changed or added since the last full backup are to be copied to a storage media; all intermediate backup information is ignored. Restoring a differential backup requires the original backup image and the most recent differential backup image made since the last full backup.
+
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384614(v=vs.85).aspx
+
+Prerequisites for All Shadow Copies
+
+Regardless of the level of writer participation, the creation of any shadow copy will always require the requestor be initialized with calls to IVssBackupComponents::InitializeForBackup and IVssBackupComponents::StartSnapshotSet.
+
+If this call is not made, the IVssBackupComponents::DoSnapshotSet method will return an error.
+
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384618(v=vs.85).aspx
+
+There are a number of different types of shadow copy a requester can create. However, for most backup applications, you would do the following:
+
+    Call IVssBackupComponents::SetContext with a context of VSS_CTX_BACKUP.
+    Call IVssBackupComponents::GatherWriterMetadata to initialize communication with writers.
+    Call IVssBackupComponents::AddComponent to add file and database components to the backup.
+    Call IVssBackupComponents::StartSnapshotSet to initialize the shadow copy mechanism.
+    Call IVssBackupComponents::AddToSnapshotSet to include volumes in the shadow copy.
+    Call IVssBackupComponents::PrepareForBackup to notify writers of backup operations.
+
+	
+##
+transportable shadow copy
+
+    A shadow copy that can be moved from one system to another. Typically, a transportable shadow copy is not surfaced locally.
+	
+surfaced shadow copy
+
+    A shadow copied volume visible to a system's Mount Manager namespace—meaning FindFirstVolume and FindNextVolume can find it and that volume arrival and departure notifications are generated. All exposed shadow copies are also surfaced shadow copies. However, a surfaced shadow copy need not be exposed. If a shadow copy is transportable, it cannot be surfaced. See also exposed shadow copy, transportable shadow copy.
+
+exposed shadow copy
+
+    A volume shadow copy that is mounted on a system and available to processes other than the one that manages it. A shadow copy volume mounted under a drive letter or a directory location is referred to as "locally exposed." A shadow copy volume accessible through a share (except for client-accessible shadow copies) is referred to as "remotely exposed." All exposed shadow copies are also surfaced shadow copies.
+
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384620(v=vs.85).aspx
+
+State Transitions in Shadow Copy Providers
+
+The state transition model in a shadow copy provider is simplified by the serialization of shadow copy creation from the time that IVssBackupComponents::StartSnapshotSet is called until the call to IVssBackupComponents::DoSnapshotSet returns. If another requester tries to create a shadow copy during this time, the call to StartSnapshotSet will fail with error VSS_E_SNAPSHOT_SET_IN_PROGRESS, indicating that the second requester should wait and try again.
+
+VSS will only call IVssProviderCreateSnapshotSet::AbortSnapshots after the requester has called DoSnapshotSet, even if the shadow copy fails or is aborted before this point. This means that a provider will not receive a call to AbortSnapshots until after IVssProviderCreateSnapshotSet::EndPrepareSnapshots has been called. If a shadow copy is aborted or fails before this point, the provider is not given any indication until a new shadow copy is started. For this reason, the provider must be prepared to handle an out-of-sequence call to IVssHardwareSnapshotProvider::BeginPrepareSnapshot at any point. This out-of-sequence call represents the start of a new shadow copy sequence and will have a new shadow copy set ID.
+	
+	
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa384577(v=vs.85).aspx
+
+An IVssBackupComponents object can be used for only one backup. Therefore, a requester must proceed through to the end of the backup, including releasing the IVssBackupComponents interface. If the backup needs to terminate prematurely, the requester needs to call IVssBackupComponents::AbortBackup and then release the IVssBackupComponents object (see Aborting VSS Operations for more information). Do not attempt to resume the IVssBackupComponents interface.
+
+
+##
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa381608(v=vs.85).aspx
+
+In addition to being accessed through the IVssBackupComponents interface by means of its copy's device object, a requester can make a shadow copy available to other processes as a mounted read-only device.
+
+This process is known as exposing a shadow copy, and is performed using the IVssBackupComponents::ExposeSnapshot method.
+
+A shadow copy can be exposed as a local volume—assigned a drive letter or associated with a mounted folder—or as a file share.
+
+
