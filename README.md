@@ -8,17 +8,17 @@ Have you **deleted** a file by mistake ? Modified a document and wish to **rever
 
 ## Screenshots
 
-New rule: Advanced         |  Rewinding time
+File Version History       |  Rewinding time
 :-------------------------:|:-------------------------:
-![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Advanced.png) | ![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/explorer_2018-05-04_18-00-38.png)
+![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/explorer_2018-05-04_17-50-30.png) | ![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/explorer_2018-05-04_18-00-38.png)
 
 New rule: General          |  New rule: Schedule
 :-------------------------:|:-------------------------:
 ![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_General.png)  |  ![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Schedule.png)
 
-List of defined Rules      |  File Version History
+List of defined Rules      |  New rule: Advanced
 :-------------------------:|:-------------------------:
-![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Rules.png)  |  ![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/explorer_2018-05-04_17-50-30.png)
+![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Rules.png)  |  ![](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Advanced.png)
 
 
 ## Features
