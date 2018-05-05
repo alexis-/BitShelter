@@ -2,7 +2,7 @@
 
 *BitShelter* is software that builds on [Microsoft's VSS technology](https://en.wikipedia.org/wiki/Shadow_Copy) to keep a version history of your files, and make external backups of them.
 
-Have you **deleted** a file by mistake ? Modified a document and wish to **revert** the **changes** ? Has one of your **drive failed** ? *BitShelter* has got you covered is all these cases !
+Have you **deleted** a file by mistake ? Modified a document and wish to **revert** the **changes** ? Has one of your **drive failed** ? *BitShelter* has got you covered in all these cases !
 
 **ATTENTION**: *BitShelter* is a **Work In Progress**, you may encounter bugs and not all features are available yet.
 
@@ -61,6 +61,12 @@ List of defined Rules      |  New rule: Advanced
 
 If you know a work-around for these limitations, please let me know [here](https://github.com/alexis-/BitShelter/issues) or by [email](mailto:alexis@incogito.org)
 
+### Requirements
+
+- While *BitShelter* should run on any Windows higher or equal to **Vista**, as of now (2018-05-05) it has **only been tested on Windows 10**
+- .NET 6.0.1 or higher (installed during Setup)
+- Configured Devices in Windows **System Protection** (see [Installation and Usage](#installation-and-usage))
+
 ### Downloads
 
 [**All releases**](https://github.com/alexis-/BitShelter/releases)
@@ -83,12 +89,6 @@ If you know a work-around for these limitations, please let me know [here](https
     * Set the desired schedule for your Snapshots in the [Schedule tab](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_Schedule.png)
     * Press the **Create** button
     * To make sure your settings are correct, [verify the snapshots](https://www.howtogeek.com/howto/11130/restore-previous-versions-of-files-in-every-edition-of-windows-7/) are properly created on selected Drives
-
-### Requirements
-
-- While *BitShelter* should run on any Windows higher or equal to **Vista**, as of now (2018-05-05) it has **only been tested on Windows 10**
-- .NET 6.0.1 or higher (installed during Setup)
-- Configured Devices in Windows **System Protection** (see [Installation and Usage](#installation-and-usage))
 
 ### Best practices
 
