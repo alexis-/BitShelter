@@ -12,6 +12,7 @@ Have you **deleted** a file by mistake ? Modified a document and wish to **rever
 - [Limitations](#limitations)
 - [Downloads](#downloads)
 - [Installation and Usage](#installation-and-usage)
+- [Requirements](#requirements)
 - [Best Practices](#best-practices)
 - [FAQ](#faq)
 - [Glossary](#glossary)
@@ -66,6 +67,8 @@ If you know a work-around for these limitations, please let me know [here](https
 
 [**Latest version (installer)**]()
 
+![](https://github.com/alexis-/BitShelter/raw/master/Resources/warning_24.png) **Make sure to follow the instructions** about ***System Protection*** and ***Raise limit***, see [Installation and Usage](#installation-and-usage)
+
 ### Installation and Usage
 
 1. [Download](#downloads) the latest version, and run the installer
@@ -80,6 +83,12 @@ If you know a work-around for these limitations, please let me know [here](https
     * Set the desired schedule for your Snapshots in the [Schedule tab](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_Schedule.png)
     * Press the **Create** button
     * To make sure your settings are correct, [verify the snapshots](https://www.howtogeek.com/howto/11130/restore-previous-versions-of-files-in-every-edition-of-windows-7/) are properly created on selected Drives
+
+### Requirements
+
+- While *BitShelter* should run on any Windows higher or equal to **Vista**, as of now (2018-05-05) it has **only been tested on Windows 10**
+- .NET 6.0.1 or higher (installed during Setup)
+- Configured Devices in Windows **System Protection** (see [Installation and Usage](#installation-and-usage))
 
 ### Best practices
 
@@ -109,6 +118,14 @@ I have come across a number of older (2010-2014) posts about issues with VSS, be
 According to my own experience, after using *BitShelter* for over a month as of the time of this writing (2018-05-05, Windows 10, Version 1709), I have never experienced any of them ; despite several trials to reproduce these issues, in different environments.
 
 [Snapshot corruption: restored files are damaged](https://answers.microsoft.com/en-us/windows/forum/windows8_1-files/shadow-copy-snapshot-file-contents-silently/06a5e25b-6607-45eb-81a1-71cfc2b0cce3?tm=1431093840771)
+
+- *How to start the Agent at startup ?*
+
+The Service is configured to run at startup, so *BitShelter* will still be active even if the *Agent* is stopped.
+If you wish you automatically run *BitShelter Agent* when your computer starts:
+- Run the *Agent*
+- Right-click on its **Tray Icon**
+- Make sure **Run at startup** is Checked.
 
 - *Connection to the service failed*: What to do ?
 
