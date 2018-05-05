@@ -30,6 +30,7 @@ List of defined Rules      |  New rule: Advanced
 
 
 ### Features
+
 - **Snapshots**: Keep a [version history](https://www.howtogeek.com/howto/11130/restore-previous-versions-of-files-in-every-edition-of-windows-7/) of your files
   - Revert file modifications
   - Restore deleted files
@@ -37,9 +38,9 @@ List of defined Rules      |  New rule: Advanced
   - Low space usage using the [Incremental method](https://en.wikipedia.org/wiki/Copy-on-write)
   - Short snapshots intervals have a [negligible cost on space usage](https://en.wikipedia.org/wiki/Copy-on-write)
   - Capture your data even when they are [locked by other Processes](https://msdn.microsoft.com/en-us/library/windows/desktop/aa384612(v=vs.85).aspx)
-  - Up to [512 Snapshots](https://msdn.microsoft.com/en-us/library/bb891959.aspx?#maxshadowcopies)
   - Very flexible [scheduling system](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Schedule.png)
 - **[WIP] Backups**: Secure your data on other drives, or off-site (owned machines, on the cloud, ...)
+  - Easily integrates with popular Cloud storage providers (Dropbox, GDrive, ...) using their folder syncing feature
   - Granular filtering of backed-up files with [Glob](https://github.com/dazinator/DotNet.Glob#patterns) and [Regex](https://www.regular-expressions.info/)
   - Archive (.zip, .tar) and compress (deflate, bzip2, lzma) your files
   - Encrypt your files: 3 Protocols ([Simple AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), [PBE](http://www.crypto-it.net/eng/theory/pbe.html), [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy)), Several Algorithms ([AES-CBC/CFC](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Common_modes), [Blowfish](https://en.wikipedia.org/wiki/Blowfish_(cipher)), [Camellia128/258](https://en.wikipedia.org/wiki/Camellia_(cipher)), [Cast5](https://en.wikipedia.org/wiki/CAST-128), [3-DES](https://en.wikipedia.org/wiki/Triple_DES), SHA1/256-Twofish, SHA1/256-3-DES, SHA1/256-AES128/256)
@@ -48,6 +49,12 @@ List of defined Rules      |  New rule: Advanced
   - Backup your data even when they are locked by other Processes (see *Snaphots*)
 
 ### Limitations
+
+- Up to [512 Snapshots](https://msdn.microsoft.com/en-us/library/bb891959.aspx?#maxshadowcopies) per Drive
+- Encryption only works with Archives
+- [Manual one-time](#installation-and-usage) activation of Windows [System Protection] on desired Drives
+
+If you know a work-around for these limitations, please let me know [here](https://github.com/alexis-/BitShelter/issues) or by [email](mailto:alexis@incogito.org)
 
 ### Installation and Usage
 
