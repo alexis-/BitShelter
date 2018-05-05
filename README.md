@@ -83,7 +83,7 @@ If you know a work-around for these limitations, please let me know [here](https
 
 ### Best practices
 
-Rule of thumb: The [3-2-1 Backup Rule](https://www.acronyms-it.co.uk/blog/backup-rule-of-three/)
+Rule of thumb: The [3-2-1 Backup Rule](https://www.acronyms-it.co.uk/blog/backup-rule-of-three/) and its [visual guide](https://github.com/alexis-/BitShelter/raw/master/Resources/X35Ndt4et3JGm9GU-GFTa6y6o4OSnUrVKyUh2y5s8_E.png)
 
 For your Local disks:
 - Prefer *Redudant Disk Storage*, such as [RAID 1 or 5](https://www.maketecheasier.com/set-up-raid-windows/)
