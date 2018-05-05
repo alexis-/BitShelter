@@ -42,6 +42,7 @@ List of defined Rules      |  New rule: Advanced
 - Short snapshots intervals have a [negligible cost on space usage](https://en.wikipedia.org/wiki/Copy-on-write)
 - Capture your data even when they are [locked by other Processes](https://msdn.microsoft.com/en-us/library/windows/desktop/aa384612(v=vs.85).aspx)
 - Very flexible [scheduling system](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Schedule.png)
+
 *[WIP]* **Backups**: Secure your data on other drives, or off-site
 - Easily integrates with popular Cloud storage providers (Dropbox, GDrive, ...) using their folder syncing feature
 - Granular filtering of backed-up files with [Glob](https://github.com/dazinator/DotNet.Glob#patterns) and [Regex](https://www.regular-expressions.info/) patterns
