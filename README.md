@@ -94,6 +94,12 @@ For your Local disks:
     - What data would you lose ?
     - Is it important ?
 
+Here are three introduction guides to Data Safety:
+
+- How to Geek: [What's the best way to back-up my computer ?](https://www.howtogeek.com/242428/whats-the-best-way-to-back-up-my-computer/)
+- PCMag: [The Beginner's Guide to PC Backup](https://www.pcmag.com/article2/0,2817,2363057,00.asp)
+- MakeUseOf: [Windows 10 data backup guide](https://www.makeuseof.com/tag/ultimate-windows-10-data-backup-guide/)
+
 ### FAQ
 
 - *Is VSS safe ?*
