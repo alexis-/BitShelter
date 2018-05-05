@@ -114,6 +114,8 @@ Connection failed          |  BitShelter Service
 
 ### Glossary
 
+Todo
+
 ### Special thanks, Credits, Licenses
 
 *BitShelter* is built on the work of people who pledged their time to the Open Source community.
