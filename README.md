@@ -65,7 +65,7 @@ If you know a work-around for these limitations, please let me know [here](https
 
 [**All releases**](https://github.com/alexis-/BitShelter/releases)
 
-[**Latest version (installer)**]()
+[**Latest version (installer)**](https://github.com/alexis-/BitShelter/releases/download/0.1-beta/BitShelter_v0.1-beta_Setup.msi)
 
 ![](https://github.com/alexis-/BitShelter/raw/master/Resources/warning_24.png) **Make sure to follow the instructions** about ***System Protection*** and ***Raise limit***, see [Installation and Usage](#installation-and-usage)
 
