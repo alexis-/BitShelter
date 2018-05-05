@@ -71,7 +71,7 @@ If you know a work-around for these limitations, please let me know [here](https
 1. [Download](#downloads) the latest version, and run the installer
 2. Start **BitShelter Agent** from the Windows Start menu
 3. Double-click on the [**Tray Icon**](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_TrayIcon.png): ![](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter_Icon.png)
-4. In the [main window](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_General.png), click the **Add Schedule** button
+4. In the [Main Window](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Rules.png), click the **Add Schedule** button
     * Click on **Enable other Drive(s)** in the [General tab](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_General.png)
     * Select the required Drives in the [System Protection dialog](https://github.com/alexis-/BitShelter/blob/master/Resources/SystemPropertiesProtection_2018-05-05_13-10-18.png) and click on **Configure**
     * In the [new dialog](https://github.com/alexis-/BitShelter/raw/master/Resources/SystemPropertiesProtection_2018-05-05_13-10-22.png) click on **Turn on protection**, select the desired reserved space for Snapshots, press **OK**
