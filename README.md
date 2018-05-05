@@ -123,9 +123,10 @@ According to my own experience, after using *BitShelter* for over a month as of 
 
 The Service is configured to run at startup, so *BitShelter* will still be active even if the *Agent* is stopped.
 If you wish you automatically run *BitShelter Agent* when your computer starts:
-- Run the *Agent*
-- Right-click on its **Tray Icon**
-- Make sure **Run at startup** is Checked.
+1. Run the *Agent*
+2. Right-click on its **Tray Icon**
+3. Make sure **Run at startup** is Checked.
+
 
 - *Connection to the service failed*: What to do ?
 
