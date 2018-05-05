@@ -12,6 +12,7 @@ Have you **deleted** a file by mistake ? Modified a document and wish to **rever
 - [Limitations](#limitations)
 - [Downloads](#downloads)
 - [Installation and Usage](#installation-and-usage)
+- [Best Practices](#best-practices)
 - [FAQ](#faq)
 - [Glossary](#glossary)
 - [Special thanks, Credits, Licenses](#special-thanks-credits-licenses)
@@ -81,15 +82,16 @@ If you know a work-around for these limitations, please let me know [here](https
 
 ### Best practices
 
-- Rule of thumb: The [3-2-1 Backup Rule](https://www.acronyms-it.co.uk/blog/backup-rule-of-three/)
-- Local disks
-  * Prefer *Redudant Disk Storage*, such as [RAID 1 or 5](https://www.maketecheasier.com/set-up-raid-windows/)
-  * Use [different Batches, or Brands](https://www.ssrc.ucsc.edu/papers/paris-storagess06.pdf), for your Disks
-  * Use an *automatic* solution : Set & Forget !
-  * Ask yourself what would happen if your device failed:
-      * Would you presently be able to recover your files ?
-      * What data would you lose ?
-      * Is it important ?
+Rule of thumb: The [3-2-1 Backup Rule](https://www.acronyms-it.co.uk/blog/backup-rule-of-three/)
+
+For your Local disks:
+- Prefer *Redudant Disk Storage*, such as [RAID 1 or 5](https://www.maketecheasier.com/set-up-raid-windows/)
+- Use [different Batches, or Brands](https://www.ssrc.ucsc.edu/papers/paris-storagess06.pdf), for your Disks
+- Use an *automatic* solution : Set & Forget !
+- Ask yourself what would happen if your device failed:
+    - Would you presently be able to recover your files ?
+    - What data would you lose ?
+    - Is it important ?
 
 ### FAQ
 
