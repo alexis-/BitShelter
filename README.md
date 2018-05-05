@@ -9,6 +9,8 @@ Have you **deleted** a file by mistake ? Modified a document and wish to **rever
 ### Table of Content
 - [Screenshots](#screenshots)
 - [Features](#features)
+- [Limitations](#limitations)
+- [Downloads](#downloads)
 - [Installation and Usage](#installation-and-usage)
 - [FAQ](#faq)
 - [Glossary](#glossary)
@@ -39,9 +41,9 @@ List of defined Rules      |  New rule: Advanced
   - Short snapshots intervals have a [negligible cost on space usage](https://en.wikipedia.org/wiki/Copy-on-write)
   - Capture your data even when they are [locked by other Processes](https://msdn.microsoft.com/en-us/library/windows/desktop/aa384612(v=vs.85).aspx)
   - Very flexible [scheduling system](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_Schedule.png)
-- **[WIP] Backups**: Secure your data on other drives, or off-site (owned machines, on the cloud, ...)
+- **[WIP] Backups**: Secure your data on other drives, or off-site
   - Easily integrates with popular Cloud storage providers (Dropbox, GDrive, ...) using their folder syncing feature
-  - Granular filtering of backed-up files with [Glob](https://github.com/dazinator/DotNet.Glob#patterns) and [Regex](https://www.regular-expressions.info/)
+  - Granular filtering of backed-up files with [Glob](https://github.com/dazinator/DotNet.Glob#patterns) and [Regex](https://www.regular-expressions.info/) patterns
   - Archive (.zip, .tar) and compress (deflate, bzip2, lzma) your files
   - Encrypt your files: 3 Protocols ([Simple AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), [PBE](http://www.crypto-it.net/eng/theory/pbe.html), [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy)), Several Algorithms ([AES-CBC/CFC](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Common_modes), [Blowfish](https://en.wikipedia.org/wiki/Blowfish_(cipher)), [Camellia128/258](https://en.wikipedia.org/wiki/Camellia_(cipher)), [Cast5](https://en.wikipedia.org/wiki/CAST-128), [3-DES](https://en.wikipedia.org/wiki/Triple_DES), SHA1/256-Twofish, SHA1/256-3-DES, SHA1/256-AES128/256)
   - **[WIP]** Schedule your backups more finely, based on the *Snapshot*'s schedule
@@ -52,15 +54,40 @@ List of defined Rules      |  New rule: Advanced
 
 - Up to [512 Snapshots](https://msdn.microsoft.com/en-us/library/bb891959.aspx?#maxshadowcopies) per Drive
 - Encryption only works with Archives
-- [Manual one-time](#installation-and-usage) activation of Windows [System Protection] on desired Drives
+- [Manual one-time](#installation-and-usage) activation of Windows [System Protection](https://github.com/alexis-/BitShelter/raw/master/Resources/SystemPropertiesProtection_2018-05-05_13-10-18.png) on desired Drives
 
 If you know a work-around for these limitations, please let me know [here](https://github.com/alexis-/BitShelter/issues) or by [email](mailto:alexis@incogito.org)
 
+### Downloads
+
 ### Installation and Usage
+
+1. [Download](#downloads) the latest version, and run the installer
+2. Start **BitShelter Agent** from the Windows Start menu
+3. Double-click on the [**Tray Icon**](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_TrayIcon.png): ![](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter_Icon.png)
+4. In the [main window](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.Agent_General.png), click the **Add Schedule** button
+    * Click on **Enable other Drive(s)** in the [General tab](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_General.png)
+    * Select the required Drives in the [System Protection dialog](https://github.com/alexis-/BitShelter/blob/master/Resources/SystemPropertiesProtection_2018-05-05_13-10-18.png) and click on **Configure**
+    * In the [new dialog](https://github.com/alexis-/BitShelter/raw/master/Resources/SystemPropertiesProtection_2018-05-05_13-10-22.png) click on **Turn on protection**, select the desired reserved space for Snapshots, press **OK**
+    * Click on **Raise limit** in the [General tab](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_General.png), and set the new limit to **512**
+    * Select desired **Drive letters** and **Lifetime** in the [General tab](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_General.png)
+    * Set the desired schedule for your Snapshots in the [Schedule tab](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_Schedule.png)
+    * Press the **Create** button
+    * To make sure your settings are correct, [verify the snapshots](https://www.howtogeek.com/howto/11130/restore-previous-versions-of-files-in-every-edition-of-windows-7/) are properly created on selected Drives
 
 ### Best practices
 
 ### FAQ
+
+- **Is VSS safe ?**
+
+- **Connection to the service failed**: What to do ?
+
+Please make sure the **BitShelter** [Service is running](http://www.thewindowsclub.com/open-windows-services)
+
+Connection failed          |  BitShelter Service
+:-------------------------:|:-------------------------:
+![](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_2018-05-04_22-14-46.png) | ![](https://github.com/alexis-/BitShelter/raw/master/Resources/mmc_2018-05-05_15-03-01.png)
 
 ### Glossary
 
