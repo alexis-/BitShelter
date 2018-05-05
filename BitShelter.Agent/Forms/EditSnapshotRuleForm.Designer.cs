@@ -47,10 +47,9 @@
       this.lblPeriodStart = new System.Windows.Forms.Label();
       this.gbFreq = new System.Windows.Forms.GroupBox();
       this.plFreqCron = new System.Windows.Forms.Panel();
-      this.cbFreqCronInvert = new Syncfusion.Windows.Forms.Tools.CheckBoxAdv();
-      this.cbFreqCronLimit = new Syncfusion.Windows.Forms.Tools.CheckBoxAdv();
-      this.dtpFreqCronEnd = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
-      this.dtpFreqCronStart = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
+      this.cbFreqCronExcluding = new Syncfusion.Windows.Forms.Tools.CheckBoxAdv();
+      this.dtpFreqCronExcludingTo = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
+      this.dtpFreqCronExcludingFrom = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
       this.lblFreqCronEnd = new System.Windows.Forms.Label();
       this.lblFreqCronStart = new System.Windows.Forms.Label();
       this.lblFreqCronHelp = new System.Windows.Forms.Label();
@@ -84,9 +83,9 @@
       this.rbFreqWeekly = new Syncfusion.Windows.Forms.Tools.RadioButtonAdv();
       this.rbFreqDaily = new Syncfusion.Windows.Forms.Tools.RadioButtonAdv();
       this.gbDailyFreq = new System.Windows.Forms.GroupBox();
-      this.cbDailyFreqEveryInvert = new Syncfusion.Windows.Forms.Tools.CheckBoxAdv();
-      this.dtpDailyFreqEveryEndAt = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
-      this.dtpDailyFreqEveryStartAt = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
+      this.cbDailyFreqEveryExcluding = new Syncfusion.Windows.Forms.Tools.CheckBoxAdv();
+      this.dtpDailyFreqEveryExcludingTo = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
+      this.dtpDailyFreqEveryExcludingFrom = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
       this.lblDailyFreqEveryEndAt = new System.Windows.Forms.Label();
       this.cbDailyFreqEvery = new Syncfusion.Windows.Forms.Tools.ComboBoxAdv();
       this.nbDailyFreqEvery = new System.Windows.Forms.NumericUpDown();
@@ -139,10 +138,9 @@
       ((System.ComponentModel.ISupportInitialize)(this.dtpPeriodStart)).BeginInit();
       this.gbFreq.SuspendLayout();
       this.plFreqCron.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.cbFreqCronInvert)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.cbFreqCronLimit)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.dtpFreqCronEnd)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.dtpFreqCronStart)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cbFreqCronExcluding)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.dtpFreqCronExcludingTo)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.dtpFreqCronExcludingFrom)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.tbFreqCron)).BeginInit();
       this.plFreqMonthly.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.cblFreqMonthlyDays)).BeginInit();
@@ -165,9 +163,9 @@
       ((System.ComponentModel.ISupportInitialize)(this.rbFreqWeekly)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.rbFreqDaily)).BeginInit();
       this.gbDailyFreq.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.cbDailyFreqEveryInvert)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqEveryEndAt)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqEveryStartAt)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cbDailyFreqEveryExcluding)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqEveryExcludingTo)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqEveryExcludingFrom)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.cbDailyFreqEvery)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nbDailyFreqEvery)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqOnce)).BeginInit();
@@ -633,10 +631,9 @@
       this.plFreqCron.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.plFreqCron.Controls.Add(this.cbFreqCronInvert);
-      this.plFreqCron.Controls.Add(this.cbFreqCronLimit);
-      this.plFreqCron.Controls.Add(this.dtpFreqCronEnd);
-      this.plFreqCron.Controls.Add(this.dtpFreqCronStart);
+      this.plFreqCron.Controls.Add(this.cbFreqCronExcluding);
+      this.plFreqCron.Controls.Add(this.dtpFreqCronExcludingTo);
+      this.plFreqCron.Controls.Add(this.dtpFreqCronExcludingFrom);
       this.plFreqCron.Controls.Add(this.lblFreqCronEnd);
       this.plFreqCron.Controls.Add(this.lblFreqCronStart);
       this.plFreqCron.Controls.Add(this.lblFreqCronHelp);
@@ -649,103 +646,89 @@
       this.plFreqCron.Size = new System.Drawing.Size(338, 120);
       this.plFreqCron.TabIndex = 21;
       // 
-      // cbFreqCronInvert
+      // cbFreqCronExcluding
       // 
-      this.cbFreqCronInvert.AutoSize = true;
-      this.cbFreqCronInvert.BeforeTouchSize = new System.Drawing.Size(89, 16);
-      this.cbFreqCronInvert.Location = new System.Drawing.Point(14, 91);
-      this.cbFreqCronInvert.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(89)))), ((int)(((byte)(91)))));
-      this.cbFreqCronInvert.Name = "cbFreqCronInvert";
-      this.cbFreqCronInvert.Size = new System.Drawing.Size(89, 16);
-      this.cbFreqCronInvert.Style = Syncfusion.Windows.Forms.Tools.CheckBoxAdvStyle.Metro;
-      this.cbFreqCronInvert.TabIndex = 15;
-      this.cbFreqCronInvert.Text = "Inverted Span";
-      this.cbFreqCronInvert.ThemesEnabled = true;
-      this.cbFreqCronInvert.CheckStateChanged += new System.EventHandler(this.refreshUI_Event);
+      this.cbFreqCronExcluding.AutoSize = true;
+      this.cbFreqCronExcluding.BeforeTouchSize = new System.Drawing.Size(71, 16);
+      this.cbFreqCronExcluding.Location = new System.Drawing.Point(14, 50);
+      this.cbFreqCronExcluding.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(89)))), ((int)(((byte)(91)))));
+      this.cbFreqCronExcluding.Name = "cbFreqCronExcluding";
+      this.cbFreqCronExcluding.Size = new System.Drawing.Size(71, 16);
+      this.cbFreqCronExcluding.Style = Syncfusion.Windows.Forms.Tools.CheckBoxAdvStyle.Metro;
+      this.cbFreqCronExcluding.TabIndex = 13;
+      this.cbFreqCronExcluding.Text = "Excluding:";
+      this.cbFreqCronExcluding.ThemesEnabled = true;
+      this.cbFreqCronExcluding.CheckedChanged += new System.EventHandler(this.cbFreqCronExcluding_CheckedChanged);
       // 
-      // cbFreqCronLimit
+      // dtpFreqCronExcludingTo
       // 
-      this.cbFreqCronLimit.AutoSize = true;
-      this.cbFreqCronLimit.BeforeTouchSize = new System.Drawing.Size(86, 16);
-      this.cbFreqCronLimit.Location = new System.Drawing.Point(14, 67);
-      this.cbFreqCronLimit.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(89)))), ((int)(((byte)(91)))));
-      this.cbFreqCronLimit.Name = "cbFreqCronLimit";
-      this.cbFreqCronLimit.Size = new System.Drawing.Size(86, 16);
-      this.cbFreqCronLimit.Style = Syncfusion.Windows.Forms.Tools.CheckBoxAdvStyle.Metro;
-      this.cbFreqCronLimit.TabIndex = 13;
-      this.cbFreqCronLimit.Text = "Day-time limit:";
-      this.cbFreqCronLimit.ThemesEnabled = true;
-      this.cbFreqCronLimit.CheckedChanged += new System.EventHandler(this.cbFreqCronLimit_CheckedChanged);
+      this.dtpFreqCronExcludingTo.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat;
+      this.dtpFreqCronExcludingTo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
+      this.dtpFreqCronExcludingTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.dtpFreqCronExcludingTo.CalendarSize = new System.Drawing.Size(189, 176);
+      this.dtpFreqCronExcludingTo.DropDownImage = null;
+      this.dtpFreqCronExcludingTo.DropDownNormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpFreqCronExcludingTo.DropDownPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpFreqCronExcludingTo.DropDownSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(191)))), ((int)(((byte)(237)))));
+      this.dtpFreqCronExcludingTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.dtpFreqCronExcludingTo.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+      this.dtpFreqCronExcludingTo.Location = new System.Drawing.Point(139, 75);
+      this.dtpFreqCronExcludingTo.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpFreqCronExcludingTo.MinValue = new System.DateTime(((long)(0)));
+      this.dtpFreqCronExcludingTo.Name = "dtpFreqCronExcludingTo";
+      this.dtpFreqCronExcludingTo.ShowCheckBox = false;
+      this.dtpFreqCronExcludingTo.ShowDropButton = false;
+      this.dtpFreqCronExcludingTo.ShowUpDown = true;
+      this.dtpFreqCronExcludingTo.Size = new System.Drawing.Size(82, 20);
+      this.dtpFreqCronExcludingTo.Style = Syncfusion.Windows.Forms.VisualStyle.Metro;
+      this.dtpFreqCronExcludingTo.TabIndex = 11;
+      this.dtpFreqCronExcludingTo.ThemesEnabled = true;
+      this.dtpFreqCronExcludingTo.Value = new System.DateTime(2018, 3, 29, 23, 0, 0, 0);
+      this.dtpFreqCronExcludingTo.ValueChanged += new System.EventHandler(this.onChange_RefreshUI);
       // 
-      // dtpFreqCronEnd
+      // dtpFreqCronExcludingFrom
       // 
-      this.dtpFreqCronEnd.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat;
-      this.dtpFreqCronEnd.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
-      this.dtpFreqCronEnd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.dtpFreqCronEnd.CalendarSize = new System.Drawing.Size(189, 176);
-      this.dtpFreqCronEnd.DropDownImage = null;
-      this.dtpFreqCronEnd.DropDownNormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpFreqCronEnd.DropDownPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpFreqCronEnd.DropDownSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(191)))), ((int)(((byte)(237)))));
-      this.dtpFreqCronEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.dtpFreqCronEnd.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-      this.dtpFreqCronEnd.Location = new System.Drawing.Point(183, 91);
-      this.dtpFreqCronEnd.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpFreqCronEnd.MinValue = new System.DateTime(((long)(0)));
-      this.dtpFreqCronEnd.Name = "dtpFreqCronEnd";
-      this.dtpFreqCronEnd.ShowCheckBox = false;
-      this.dtpFreqCronEnd.ShowDropButton = false;
-      this.dtpFreqCronEnd.ShowUpDown = true;
-      this.dtpFreqCronEnd.Size = new System.Drawing.Size(82, 20);
-      this.dtpFreqCronEnd.Style = Syncfusion.Windows.Forms.VisualStyle.Metro;
-      this.dtpFreqCronEnd.TabIndex = 11;
-      this.dtpFreqCronEnd.ThemesEnabled = true;
-      this.dtpFreqCronEnd.Value = new System.DateTime(2018, 3, 29, 23, 0, 0, 0);
-      this.dtpFreqCronEnd.ValueChanged += new System.EventHandler(this.onChange_RefreshUI);
-      // 
-      // dtpFreqCronStart
-      // 
-      this.dtpFreqCronStart.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat;
-      this.dtpFreqCronStart.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
-      this.dtpFreqCronStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.dtpFreqCronStart.CalendarSize = new System.Drawing.Size(189, 176);
-      this.dtpFreqCronStart.DropDownImage = null;
-      this.dtpFreqCronStart.DropDownNormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpFreqCronStart.DropDownPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpFreqCronStart.DropDownSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(191)))), ((int)(((byte)(237)))));
-      this.dtpFreqCronStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.dtpFreqCronStart.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-      this.dtpFreqCronStart.Location = new System.Drawing.Point(183, 65);
-      this.dtpFreqCronStart.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpFreqCronStart.MinValue = new System.DateTime(((long)(0)));
-      this.dtpFreqCronStart.Name = "dtpFreqCronStart";
-      this.dtpFreqCronStart.ShowCheckBox = false;
-      this.dtpFreqCronStart.ShowDropButton = false;
-      this.dtpFreqCronStart.ShowUpDown = true;
-      this.dtpFreqCronStart.Size = new System.Drawing.Size(82, 20);
-      this.dtpFreqCronStart.Style = Syncfusion.Windows.Forms.VisualStyle.Metro;
-      this.dtpFreqCronStart.TabIndex = 10;
-      this.dtpFreqCronStart.ThemesEnabled = true;
-      this.dtpFreqCronStart.Value = new System.DateTime(2018, 3, 29, 8, 0, 0, 0);
-      this.dtpFreqCronStart.ValueChanged += new System.EventHandler(this.onChange_RefreshUI);
+      this.dtpFreqCronExcludingFrom.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat;
+      this.dtpFreqCronExcludingFrom.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
+      this.dtpFreqCronExcludingFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.dtpFreqCronExcludingFrom.CalendarSize = new System.Drawing.Size(189, 176);
+      this.dtpFreqCronExcludingFrom.DropDownImage = null;
+      this.dtpFreqCronExcludingFrom.DropDownNormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpFreqCronExcludingFrom.DropDownPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpFreqCronExcludingFrom.DropDownSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(191)))), ((int)(((byte)(237)))));
+      this.dtpFreqCronExcludingFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.dtpFreqCronExcludingFrom.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+      this.dtpFreqCronExcludingFrom.Location = new System.Drawing.Point(139, 49);
+      this.dtpFreqCronExcludingFrom.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpFreqCronExcludingFrom.MinValue = new System.DateTime(((long)(0)));
+      this.dtpFreqCronExcludingFrom.Name = "dtpFreqCronExcludingFrom";
+      this.dtpFreqCronExcludingFrom.ShowCheckBox = false;
+      this.dtpFreqCronExcludingFrom.ShowDropButton = false;
+      this.dtpFreqCronExcludingFrom.ShowUpDown = true;
+      this.dtpFreqCronExcludingFrom.Size = new System.Drawing.Size(82, 20);
+      this.dtpFreqCronExcludingFrom.Style = Syncfusion.Windows.Forms.VisualStyle.Metro;
+      this.dtpFreqCronExcludingFrom.TabIndex = 10;
+      this.dtpFreqCronExcludingFrom.ThemesEnabled = true;
+      this.dtpFreqCronExcludingFrom.Value = new System.DateTime(2018, 3, 29, 8, 0, 0, 0);
+      this.dtpFreqCronExcludingFrom.ValueChanged += new System.EventHandler(this.onChange_RefreshUI);
       // 
       // lblFreqCronEnd
       // 
       this.lblFreqCronEnd.AutoSize = true;
-      this.lblFreqCronEnd.Location = new System.Drawing.Point(119, 93);
+      this.lblFreqCronEnd.Location = new System.Drawing.Point(97, 77);
       this.lblFreqCronEnd.Name = "lblFreqCronEnd";
-      this.lblFreqCronEnd.Size = new System.Drawing.Size(55, 13);
+      this.lblFreqCronEnd.Size = new System.Drawing.Size(23, 13);
       this.lblFreqCronEnd.TabIndex = 12;
-      this.lblFreqCronEnd.Text = "Ending at:";
+      this.lblFreqCronEnd.Text = "To:";
       // 
       // lblFreqCronStart
       // 
       this.lblFreqCronStart.AutoSize = true;
-      this.lblFreqCronStart.Location = new System.Drawing.Point(119, 68);
+      this.lblFreqCronStart.Location = new System.Drawing.Point(97, 52);
       this.lblFreqCronStart.Name = "lblFreqCronStart";
-      this.lblFreqCronStart.Size = new System.Drawing.Size(58, 13);
+      this.lblFreqCronStart.Size = new System.Drawing.Size(33, 13);
       this.lblFreqCronStart.TabIndex = 9;
-      this.lblFreqCronStart.Text = "Starting at:";
+      this.lblFreqCronStart.Text = "From:";
       // 
       // lblFreqCronHelp
       // 
@@ -1219,9 +1202,9 @@
       // 
       this.gbDailyFreq.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.gbDailyFreq.Controls.Add(this.cbDailyFreqEveryInvert);
-      this.gbDailyFreq.Controls.Add(this.dtpDailyFreqEveryEndAt);
-      this.gbDailyFreq.Controls.Add(this.dtpDailyFreqEveryStartAt);
+      this.gbDailyFreq.Controls.Add(this.cbDailyFreqEveryExcluding);
+      this.gbDailyFreq.Controls.Add(this.dtpDailyFreqEveryExcludingTo);
+      this.gbDailyFreq.Controls.Add(this.dtpDailyFreqEveryExcludingFrom);
       this.gbDailyFreq.Controls.Add(this.lblDailyFreqEveryEndAt);
       this.gbDailyFreq.Controls.Add(this.cbDailyFreqEvery);
       this.gbDailyFreq.Controls.Add(this.nbDailyFreqEvery);
@@ -1236,82 +1219,82 @@
       this.gbDailyFreq.TabStop = false;
       this.gbDailyFreq.Text = "Daily frequency";
       // 
-      // cbDailyFreqEveryInvert
+      // cbDailyFreqEveryExcluding
       // 
-      this.cbDailyFreqEveryInvert.AutoSize = true;
-      this.cbDailyFreqEveryInvert.BeforeTouchSize = new System.Drawing.Size(89, 16);
-      this.cbDailyFreqEveryInvert.Location = new System.Drawing.Point(282, 102);
-      this.cbDailyFreqEveryInvert.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(89)))), ((int)(((byte)(91)))));
-      this.cbDailyFreqEveryInvert.Name = "cbDailyFreqEveryInvert";
-      this.cbDailyFreqEveryInvert.Size = new System.Drawing.Size(89, 16);
-      this.cbDailyFreqEveryInvert.Style = Syncfusion.Windows.Forms.Tools.CheckBoxAdvStyle.Metro;
-      this.cbDailyFreqEveryInvert.TabIndex = 14;
-      this.cbDailyFreqEveryInvert.Text = "Inverted Span";
-      this.cbDailyFreqEveryInvert.ThemesEnabled = true;
-      this.cbDailyFreqEveryInvert.CheckStateChanged += new System.EventHandler(this.refreshUI_Event);
+      this.cbDailyFreqEveryExcluding.AutoSize = true;
+      this.cbDailyFreqEveryExcluding.BeforeTouchSize = new System.Drawing.Size(71, 16);
+      this.cbDailyFreqEveryExcluding.Location = new System.Drawing.Point(62, 87);
+      this.cbDailyFreqEveryExcluding.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(89)))), ((int)(((byte)(91)))));
+      this.cbDailyFreqEveryExcluding.Name = "cbDailyFreqEveryExcluding";
+      this.cbDailyFreqEveryExcluding.Size = new System.Drawing.Size(71, 16);
+      this.cbDailyFreqEveryExcluding.Style = Syncfusion.Windows.Forms.Tools.CheckBoxAdvStyle.Metro;
+      this.cbDailyFreqEveryExcluding.TabIndex = 14;
+      this.cbDailyFreqEveryExcluding.Text = "Excluding:";
+      this.cbDailyFreqEveryExcluding.ThemesEnabled = true;
+      this.cbDailyFreqEveryExcluding.CheckedChanged += new System.EventHandler(this.cbDailyFreqEveryExcluding_CheckedChanged);
       // 
-      // dtpDailyFreqEveryEndAt
+      // dtpDailyFreqEveryExcludingTo
       // 
-      this.dtpDailyFreqEveryEndAt.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat;
-      this.dtpDailyFreqEveryEndAt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
-      this.dtpDailyFreqEveryEndAt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.dtpDailyFreqEveryEndAt.CalendarSize = new System.Drawing.Size(189, 176);
-      this.dtpDailyFreqEveryEndAt.DropDownImage = null;
-      this.dtpDailyFreqEveryEndAt.DropDownNormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpDailyFreqEveryEndAt.DropDownPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpDailyFreqEveryEndAt.DropDownSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(191)))), ((int)(((byte)(237)))));
-      this.dtpDailyFreqEveryEndAt.EnableNullDate = false;
-      this.dtpDailyFreqEveryEndAt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.dtpDailyFreqEveryEndAt.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-      this.dtpDailyFreqEveryEndAt.Location = new System.Drawing.Point(344, 78);
-      this.dtpDailyFreqEveryEndAt.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpDailyFreqEveryEndAt.MinValue = new System.DateTime(((long)(0)));
-      this.dtpDailyFreqEveryEndAt.Name = "dtpDailyFreqEveryEndAt";
-      this.dtpDailyFreqEveryEndAt.ShowCheckBox = false;
-      this.dtpDailyFreqEveryEndAt.ShowDropButton = false;
-      this.dtpDailyFreqEveryEndAt.ShowUpDown = true;
-      this.dtpDailyFreqEveryEndAt.Size = new System.Drawing.Size(82, 20);
-      this.dtpDailyFreqEveryEndAt.Style = Syncfusion.Windows.Forms.VisualStyle.Metro;
-      this.dtpDailyFreqEveryEndAt.TabIndex = 8;
-      this.dtpDailyFreqEveryEndAt.ThemesEnabled = true;
-      this.dtpDailyFreqEveryEndAt.Value = new System.DateTime(2018, 3, 29, 23, 0, 0, 0);
-      this.dtpDailyFreqEveryEndAt.ValueChanged += new System.EventHandler(this.onChange_RefreshUI);
+      this.dtpDailyFreqEveryExcludingTo.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat;
+      this.dtpDailyFreqEveryExcludingTo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
+      this.dtpDailyFreqEveryExcludingTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.dtpDailyFreqEveryExcludingTo.CalendarSize = new System.Drawing.Size(189, 176);
+      this.dtpDailyFreqEveryExcludingTo.DropDownImage = null;
+      this.dtpDailyFreqEveryExcludingTo.DropDownNormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpDailyFreqEveryExcludingTo.DropDownPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpDailyFreqEveryExcludingTo.DropDownSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(191)))), ((int)(((byte)(237)))));
+      this.dtpDailyFreqEveryExcludingTo.EnableNullDate = false;
+      this.dtpDailyFreqEveryExcludingTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.dtpDailyFreqEveryExcludingTo.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+      this.dtpDailyFreqEveryExcludingTo.Location = new System.Drawing.Point(337, 88);
+      this.dtpDailyFreqEveryExcludingTo.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpDailyFreqEveryExcludingTo.MinValue = new System.DateTime(((long)(0)));
+      this.dtpDailyFreqEveryExcludingTo.Name = "dtpDailyFreqEveryExcludingTo";
+      this.dtpDailyFreqEveryExcludingTo.ShowCheckBox = false;
+      this.dtpDailyFreqEveryExcludingTo.ShowDropButton = false;
+      this.dtpDailyFreqEveryExcludingTo.ShowUpDown = true;
+      this.dtpDailyFreqEveryExcludingTo.Size = new System.Drawing.Size(82, 20);
+      this.dtpDailyFreqEveryExcludingTo.Style = Syncfusion.Windows.Forms.VisualStyle.Metro;
+      this.dtpDailyFreqEveryExcludingTo.TabIndex = 8;
+      this.dtpDailyFreqEveryExcludingTo.ThemesEnabled = true;
+      this.dtpDailyFreqEveryExcludingTo.Value = new System.DateTime(2018, 3, 29, 7, 0, 0, 0);
+      this.dtpDailyFreqEveryExcludingTo.ValueChanged += new System.EventHandler(this.onChange_RefreshUI);
       // 
-      // dtpDailyFreqEveryStartAt
+      // dtpDailyFreqEveryExcludingFrom
       // 
-      this.dtpDailyFreqEveryStartAt.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat;
-      this.dtpDailyFreqEveryStartAt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
-      this.dtpDailyFreqEveryStartAt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.dtpDailyFreqEveryStartAt.CalendarSize = new System.Drawing.Size(189, 176);
-      this.dtpDailyFreqEveryStartAt.DropDownImage = null;
-      this.dtpDailyFreqEveryStartAt.DropDownNormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpDailyFreqEveryStartAt.DropDownPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpDailyFreqEveryStartAt.DropDownSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(191)))), ((int)(((byte)(237)))));
-      this.dtpDailyFreqEveryStartAt.EnableNullDate = false;
-      this.dtpDailyFreqEveryStartAt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.dtpDailyFreqEveryStartAt.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-      this.dtpDailyFreqEveryStartAt.Location = new System.Drawing.Point(344, 52);
-      this.dtpDailyFreqEveryStartAt.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
-      this.dtpDailyFreqEveryStartAt.MinValue = new System.DateTime(((long)(0)));
-      this.dtpDailyFreqEveryStartAt.Name = "dtpDailyFreqEveryStartAt";
-      this.dtpDailyFreqEveryStartAt.ShowCheckBox = false;
-      this.dtpDailyFreqEveryStartAt.ShowDropButton = false;
-      this.dtpDailyFreqEveryStartAt.ShowUpDown = true;
-      this.dtpDailyFreqEveryStartAt.Size = new System.Drawing.Size(82, 20);
-      this.dtpDailyFreqEveryStartAt.Style = Syncfusion.Windows.Forms.VisualStyle.Metro;
-      this.dtpDailyFreqEveryStartAt.TabIndex = 7;
-      this.dtpDailyFreqEveryStartAt.ThemesEnabled = true;
-      this.dtpDailyFreqEveryStartAt.Value = new System.DateTime(2018, 3, 29, 8, 0, 0, 0);
-      this.dtpDailyFreqEveryStartAt.ValueChanged += new System.EventHandler(this.onChange_RefreshUI);
+      this.dtpDailyFreqEveryExcludingFrom.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat;
+      this.dtpDailyFreqEveryExcludingFrom.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
+      this.dtpDailyFreqEveryExcludingFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.dtpDailyFreqEveryExcludingFrom.CalendarSize = new System.Drawing.Size(189, 176);
+      this.dtpDailyFreqEveryExcludingFrom.DropDownImage = null;
+      this.dtpDailyFreqEveryExcludingFrom.DropDownNormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpDailyFreqEveryExcludingFrom.DropDownPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpDailyFreqEveryExcludingFrom.DropDownSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(191)))), ((int)(((byte)(237)))));
+      this.dtpDailyFreqEveryExcludingFrom.EnableNullDate = false;
+      this.dtpDailyFreqEveryExcludingFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.dtpDailyFreqEveryExcludingFrom.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+      this.dtpDailyFreqEveryExcludingFrom.Location = new System.Drawing.Point(212, 87);
+      this.dtpDailyFreqEveryExcludingFrom.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+      this.dtpDailyFreqEveryExcludingFrom.MinValue = new System.DateTime(((long)(0)));
+      this.dtpDailyFreqEveryExcludingFrom.Name = "dtpDailyFreqEveryExcludingFrom";
+      this.dtpDailyFreqEveryExcludingFrom.ShowCheckBox = false;
+      this.dtpDailyFreqEveryExcludingFrom.ShowDropButton = false;
+      this.dtpDailyFreqEveryExcludingFrom.ShowUpDown = true;
+      this.dtpDailyFreqEveryExcludingFrom.Size = new System.Drawing.Size(82, 20);
+      this.dtpDailyFreqEveryExcludingFrom.Style = Syncfusion.Windows.Forms.VisualStyle.Metro;
+      this.dtpDailyFreqEveryExcludingFrom.TabIndex = 7;
+      this.dtpDailyFreqEveryExcludingFrom.ThemesEnabled = true;
+      this.dtpDailyFreqEveryExcludingFrom.Value = new System.DateTime(2018, 3, 29, 0, 0, 0, 0);
+      this.dtpDailyFreqEveryExcludingFrom.ValueChanged += new System.EventHandler(this.onChange_RefreshUI);
       // 
       // lblDailyFreqEveryEndAt
       // 
       this.lblDailyFreqEveryEndAt.AutoSize = true;
-      this.lblDailyFreqEveryEndAt.Location = new System.Drawing.Point(280, 80);
+      this.lblDailyFreqEveryEndAt.Location = new System.Drawing.Point(306, 90);
       this.lblDailyFreqEveryEndAt.Name = "lblDailyFreqEveryEndAt";
-      this.lblDailyFreqEveryEndAt.Size = new System.Drawing.Size(55, 13);
+      this.lblDailyFreqEveryEndAt.Size = new System.Drawing.Size(23, 13);
       this.lblDailyFreqEveryEndAt.TabIndex = 8;
-      this.lblDailyFreqEveryEndAt.Text = "Ending at:";
+      this.lblDailyFreqEveryEndAt.Text = "To:";
       // 
       // cbDailyFreqEvery
       // 
@@ -1359,11 +1342,11 @@
       // lblDailyFreqEveryStartAt
       // 
       this.lblDailyFreqEveryStartAt.AutoSize = true;
-      this.lblDailyFreqEveryStartAt.Location = new System.Drawing.Point(280, 55);
+      this.lblDailyFreqEveryStartAt.Location = new System.Drawing.Point(172, 90);
       this.lblDailyFreqEveryStartAt.Name = "lblDailyFreqEveryStartAt";
-      this.lblDailyFreqEveryStartAt.Size = new System.Drawing.Size(58, 13);
+      this.lblDailyFreqEveryStartAt.Size = new System.Drawing.Size(33, 13);
       this.lblDailyFreqEveryStartAt.TabIndex = 5;
-      this.lblDailyFreqEveryStartAt.Text = "Starting at:";
+      this.lblDailyFreqEveryStartAt.Text = "From:";
       // 
       // dtpDailyFreqOnce
       // 
@@ -1827,10 +1810,9 @@
       this.gbFreq.ResumeLayout(false);
       this.plFreqCron.ResumeLayout(false);
       this.plFreqCron.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.cbFreqCronInvert)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.cbFreqCronLimit)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.dtpFreqCronEnd)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.dtpFreqCronStart)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cbFreqCronExcluding)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.dtpFreqCronExcludingTo)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.dtpFreqCronExcludingFrom)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.tbFreqCron)).EndInit();
       this.plFreqMonthly.ResumeLayout(false);
       this.plFreqMonthly.PerformLayout();
@@ -1857,9 +1839,9 @@
       ((System.ComponentModel.ISupportInitialize)(this.rbFreqDaily)).EndInit();
       this.gbDailyFreq.ResumeLayout(false);
       this.gbDailyFreq.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.cbDailyFreqEveryInvert)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqEveryEndAt)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqEveryStartAt)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cbDailyFreqEveryExcluding)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqEveryExcludingTo)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqEveryExcludingFrom)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.cbDailyFreqEvery)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nbDailyFreqEvery)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.dtpDailyFreqOnce)).EndInit();
@@ -1932,9 +1914,9 @@
     private Syncfusion.Windows.Forms.Tools.RadioButtonAdv rbFreqWeekly;
     private Syncfusion.Windows.Forms.Tools.RadioButtonAdv rbFreqDaily;
     private System.Windows.Forms.Panel plFreqCron;
-    private Syncfusion.Windows.Forms.Tools.CheckBoxAdv cbFreqCronLimit;
-    private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpFreqCronEnd;
-    private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpFreqCronStart;
+    private Syncfusion.Windows.Forms.Tools.CheckBoxAdv cbFreqCronExcluding;
+    private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpFreqCronExcludingTo;
+    private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpFreqCronExcludingFrom;
     private System.Windows.Forms.Label lblFreqCronEnd;
     private System.Windows.Forms.Label lblFreqCronStart;
     private System.Windows.Forms.Label lblFreqCronHelp;
@@ -1943,8 +1925,8 @@
     private Syncfusion.Windows.Forms.Tools.TextBoxExt tbFreqCron;
     private System.Windows.Forms.Label lblFreqCron;
     private System.Windows.Forms.GroupBox gbDailyFreq;
-    private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpDailyFreqEveryEndAt;
-    private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpDailyFreqEveryStartAt;
+    private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpDailyFreqEveryExcludingTo;
+    private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpDailyFreqEveryExcludingFrom;
     private System.Windows.Forms.Label lblDailyFreqEveryEndAt;
     private Syncfusion.Windows.Forms.Tools.ComboBoxAdv cbDailyFreqEvery;
     private System.Windows.Forms.NumericUpDown nbDailyFreqEvery;
@@ -1971,8 +1953,7 @@
     private Syncfusion.Windows.Forms.ButtonAdv btnBackupAdd;
     private EWSoftware.ListControls.CheckBoxList cblDriveLetters;
     private Syncfusion.Windows.Forms.SkinManager skinManager;
-    private Syncfusion.Windows.Forms.Tools.CheckBoxAdv cbFreqCronInvert;
-    private Syncfusion.Windows.Forms.Tools.CheckBoxAdv cbDailyFreqEveryInvert;
+    private Syncfusion.Windows.Forms.Tools.CheckBoxAdv cbDailyFreqEveryExcluding;
     private Syncfusion.Windows.Forms.Tools.TabPageAdv tbAdvanced;
     private System.Windows.Forms.NumericUpDown nbSnapFailRetryCount;
     private Syncfusion.Windows.Forms.Tools.CheckBoxAdv cbSnapFailRestartVSS;

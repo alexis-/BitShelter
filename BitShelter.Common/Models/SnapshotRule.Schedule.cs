@@ -17,11 +17,11 @@ namespace BitShelter.Models
     [DataMember]
     public int DailyFreqEvery { get; set; }
     [DataMember]
-    public DateTime DailyFreqStart { get; set; }
+    public bool DailyFreqEveryExcluding { get; set; }
     [DataMember]
-    public DateTime DailyFreqEnd { get; set; }
+    public DateTime DailyFreqEveryExcludingFrom { get; set; }
     [DataMember]
-    public bool DailyFreqInvert { get; set; }
+    public DateTime DailyFreqEveryExcludingTo { get; set; }
 
     // Frequency
     [DataMember]
@@ -41,13 +41,11 @@ namespace BitShelter.Models
     [DataMember]
     public string FreqCron { get; set; }
     [DataMember]
-    public bool FreqCronDailyLimit { get; set; }
+    public bool FreqCronDailyExcluding { get; set; }
     [DataMember]
-    public DateTime FreqCronDailyStart { get; set; }
+    public DateTime FreqCronDailyExcludingFrom { get; set; }
     [DataMember]
-    public DateTime FreqCronDailyEnd { get; set; }
-    [DataMember]
-    public bool FreqCronDailyInvert { get; set; }
+    public DateTime FreqCronDailyExcludingTo { get; set; }
 
     // Period
     [DataMember]

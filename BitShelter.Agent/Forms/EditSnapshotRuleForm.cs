@@ -18,6 +18,7 @@ namespace BitShelter.Agent.Forms
     private bool Valid { get; set; } = true;
     private long RuleId { get; }
     private string RuleName { get; }
+    private SynchronizationContext SyncContext { get; set; }
 
 
 
@@ -27,6 +28,7 @@ namespace BitShelter.Agent.Forms
     protected EditSnapshotRuleForm(SnapshotRule rule)
     {
       InitializeComponent();
+      SyncContext = SynchronizationContext.Current;
 
       InitBase();
 
@@ -221,8 +223,6 @@ namespace BitShelter.Agent.Forms
 
     private string ComputeMaxSnapshotCount(SnapshotRule rule)
     {
-      ICalendar calendar = rule.GetCalendar();
-
       var nextFireTime = rule.GetNextFireTime(DateTimeOffset.Now.AddSeconds(-1));
 
       if (!nextFireTime.HasValue)
@@ -243,7 +243,7 @@ namespace BitShelter.Agent.Forms
 
         return computeTask.Result.ToString();
       }
-      catch (OperationCanceledException ex)
+      catch (OperationCanceledException)
       {
         return "(timeout: too many)";
       }

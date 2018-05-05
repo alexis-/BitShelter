@@ -46,7 +46,7 @@ namespace BitShelter.Service.Scheduler
       foreach (var rule in rules.Where(r => r.Enabled))
       {
         if (rule.HasCalendar())
-          QuartzScheduler.Instance.Scheduler.AddCalendar(rule.GetCalendarName(), rule.GetCalendar(), true, false).Wait();
+          QuartzScheduler.Instance.Scheduler.AddCalendar(rule.GetCalendarName(), rule.GetCalendar(), true, true).Wait();
 
         snapshotTriggers.Add(rule.GetTrigger());
       }

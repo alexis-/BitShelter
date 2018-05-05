@@ -12,29 +12,46 @@ namespace BitShelter.Data
 {
   public static class SnapshotRuleEx
   {
+    public static bool IsExcludingDayRange(this SnapshotRule rule)
+    {
+      return (rule.Freq == Freq.Cron && rule.FreqCronDailyExcluding) || (rule.DailyFreq == DailyFreq.Every && rule.DailyFreqEveryExcluding);
+    }
+
+    public static void GetExcludingDayRange(
+      this SnapshotRule rule,
+      out DateTime from,
+      out DateTime to)
+    {
+      if (rule.Freq == Freq.Cron && rule.FreqCronDailyExcluding)
+      {
+        from = rule.FreqCronDailyExcludingFrom;
+        to = rule.FreqCronDailyExcludingTo;
+      }
+
+      else if (rule.DailyFreq == DailyFreq.Every && rule.DailyFreqEveryExcluding)
+      {
+        from = rule.DailyFreqEveryExcludingFrom;
+        to = rule.DailyFreqEveryExcludingTo;
+      }
+
+      else
+        throw new InvalidOperationException("GetExcludingDayRange called without excluding one");
+    }
+
     public static bool HasCalendar(this SnapshotRule rule)
     {
-      return (rule.Freq == Freq.Cron && rule.FreqCronDailyLimit) || rule.DailyFreq == DailyFreq.Every;
+      return rule.IsExcludingDayRange();
     }
 
     public static ICalendar GetCalendar(this SnapshotRule rule)
     {
-      DailyCalendar dailyCalendar = null;
+      if (rule.HasCalendar() == false)
+        return null;
 
-      if (rule.Freq == Freq.Cron && rule.FreqCronDailyLimit)
-        dailyCalendar = new DailyCalendar(rule.FreqCronDailyStart, rule.FreqCronDailyEnd)
-        {
-          // ?! Appears to be inverted itself.. What a conundrum
-          InvertTimeRange = !rule.FreqCronDailyInvert
-        };
-
-      else if (rule.DailyFreq == DailyFreq.Every)
-        dailyCalendar = new DailyCalendar(rule.DailyFreqStart, rule.DailyFreqEnd)
-        {
-          InvertTimeRange = !rule.DailyFreqInvert
-        };
-
-      return dailyCalendar;
+      // Modify here to handle several calendar if necessary in the future
+      // Beware of calling GetExcludingDayRange if no exclusion range enabled
+      rule.GetExcludingDayRange(out DateTime from, out DateTime to);
+      return new DailyCalendar(from, to);
     }
 
     public static string GetCalendarName(this SnapshotRule rule)

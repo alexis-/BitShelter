@@ -1,4 +1,5 @@
-﻿using BitShelter.Agent.Forms;
+﻿using BitShelter.Agent;
+using BitShelter.Agent.Forms;
 using BitShelter.Agent.WCF;
 using BitShelter.Models;
 using BitShelter.WCF;
@@ -6,6 +7,8 @@ using Serilog;
 using Syncfusion.Windows.Forms;
 using System;
 using System.ServiceModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BitShelter
@@ -13,12 +16,15 @@ namespace BitShelter
   //[CallbackBehavior(UseSynchronizationContext = false)]
   public partial class SettingsForm : MetroForm, ISnapshotServiceCallback
   {
-    private const int RetryDelay = 5; // * 1000
-    private const string RetryText = "Connection to the service failed.\nRetrying in {0}...";
+    protected const int RetryDelay = 5; // * 1000
+    protected const string RetryText = "Connection to the service failed.\nRetrying in {0}...";
 
     protected static SettingsForm _instance = null;
 
-    public int RetryCount { get; private set; }
+    protected SynchronizationContext SyncContext { get; set; }
+    protected int RetryCount { get; private set; }
+    protected SnapshotClient SnapshotClient { get; private set; }
+
 
     public static SettingsForm DisplayInstance()
     {
@@ -56,7 +62,10 @@ namespace BitShelter
     {
       InitializeComponent();
 
+      SyncContext = SynchronizationContext.Current;
+
       SetupSnapshotDataGrid();
+      ConnectSnapshotClient();
     }
 
     private void SetupSnapshotDataGrid()
@@ -65,9 +74,6 @@ namespace BitShelter
       dgSnapshotRules.CellContentClick += DgSnapshotRules_CellContentClick;
 
       SetupSnapshotDataGridColumns();
-
-      if (!RefreshDataGrid())
-        DisplayConnectionPanel();
     }
 
     private void SetupSnapshotDataGridColumns()
@@ -82,12 +88,10 @@ namespace BitShelter
 
     private bool RefreshDataGrid()
     {
+      //snap.InnerDuplexChannel.Faulted
       try
       {
-        using (SnapshotClient snap = new SnapshotClient(new InstanceContext(this)))
-        {
-          dgSnapshotRules.DataSource = snap.GetRules();
-        }
+        dgSnapshotRules.DataSource = SnapshotClient.GetRules();
 
         return true;
       }
@@ -103,12 +107,9 @@ namespace BitShelter
     {
       try
       {
-        using (SnapshotClient snap = new SnapshotClient(new InstanceContext(this)))
-        {
-          snap.AddOrUpdateRule(rule);
+        SnapshotClient.AddOrUpdateRule(rule);
 
-          dgSnapshotRules.DataSource = snap.GetRules();
-        }
+        dgSnapshotRules.DataSource = SnapshotClient.GetRules();
 
         return true;
       }
@@ -124,12 +125,9 @@ namespace BitShelter
     {
       try
       {
-        using (SnapshotClient snap = new SnapshotClient(new InstanceContext(this)))
-        {
-          snap.DeleteRule(rule, deleteSnapshots);
+        SnapshotClient.DeleteRule(rule, deleteSnapshots);
 
-          dgSnapshotRules.DataSource = snap.GetRules();
-        }
+        dgSnapshotRules.DataSource = SnapshotClient.GetRules();
 
         return true;
       }
@@ -192,16 +190,14 @@ namespace BitShelter
             rule = EditSnapshotRuleForm.DisplayInstance(rule);
 
             if (rule != null)
-              if (!AddOrUpdateSnapshotRule(rule))
-                DisplayConnectionPanel();
+              AddOrUpdateSnapshotRule(rule);
             break;
 
           case "Delete":
             var res = MessageBox.Show("Do you also want to delete existing Snapshots ?", "Confirm", MessageBoxButtons.YesNoCancel);
 
             if (res != DialogResult.Cancel)
-              if (!DeleteSnapshotRule(rule, res == DialogResult.Yes))
-                DisplayConnectionPanel();
+              DeleteSnapshotRule(rule, res == DialogResult.Yes);
 
             break;
         }
@@ -213,8 +209,7 @@ namespace BitShelter
       SnapshotRule rule = EditSnapshotRuleForm.DisplayInstance();
 
       if (rule != null)
-        if (!AddOrUpdateSnapshotRule(rule))
-          DisplayConnectionPanel();
+        AddOrUpdateSnapshotRule(rule);
     }
 
     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -230,13 +225,78 @@ namespace BitShelter
 
     public void Dummy() { }
 
-    private void DisplayConnectionPanel()
+    private void SetupSnapshotClient()
+    {
+      if (SnapshotClient != null)
+      {
+        try
+        {
+          SnapshotClient.InnerChannel.Opened -= InnerChannel_Opened;
+          SnapshotClient.InnerChannel.Faulted -= SnapshotClient_Faulted;
+          SnapshotClient.Abort();
+          SnapshotClient = null;
+        }
+        catch (Exception)
+        {
+        }
+      }
+
+      SnapshotClient = new SnapshotClient(new InstanceContext(this));
+      
+      SnapshotClient.InnerChannel.Opened += InnerChannel_Opened;
+      SnapshotClient.InnerChannel.Faulted += SnapshotClient_Faulted;
+    }
+
+    private void InnerChannel_Opened(object sender, EventArgs e)
+    {
+      SendOrPostCallback updateUI = new SendOrPostCallback(arg =>
+      {
+        StopConnectionRetry();
+
+        RefreshDataGrid();
+      });
+
+      SyncContext.Send(updateUI, null);
+    }
+
+    private void SnapshotClient_Faulted(object sender, EventArgs e)
+    {
+      if (!retryConnTimer.Enabled)
+      {
+        RetryCount = 0;
+
+        SendOrPostCallback updateUI = new SendOrPostCallback(arg =>
+        {
+          StartConnectionRetry();
+        });
+
+        SyncContext.Send(updateUI, null);
+      }
+    }
+
+    private void ConnectSnapshotClient()
+    {
+      SetupSnapshotClient();
+
+      try
+      {
+        SnapshotClient.Open();
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+
+
+    //
+    // Connection retry
+
+    private void StartConnectionRetry()
     {
       plSvcConnection.Visible = true;
       plSvcConnection.Enabled = true;
       plSvcConnection.BringToFront();
-
-      RetryCount = 0;
 
       //wb.Url = null;
       DisplayNewTrivia();
@@ -245,7 +305,7 @@ namespace BitShelter
       retryConnTimer.Start();
     }
 
-    private void HideConnectionPanel()
+    private void StopConnectionRetry()
     {
       plSvcConnection.Visible = false;
       plSvcConnection.Enabled = false;
@@ -258,7 +318,7 @@ namespace BitShelter
       if (wb.Url != null && wb.Url.ToString() != "about:blank")
         return;
 
-      int idx = new Random().Next(BitShelter.Agent.AgentConst.Trivia.Length);
+      int idx = new Random().Next(AgentConst.Trivia.Length);
 
       wb.DocumentText = String.Format(@"
 <html><body>
@@ -267,7 +327,7 @@ namespace BitShelter
 <br/><br/>
 <span><b>Source</b>: <a href=""https://en.wikipedia.org/wiki/List_of_common_misconceptions"">https://en.wikipedia.org/wiki/List_of_common_misconceptions</a></span>
 </body></html>
-", BitShelter.Agent.AgentConst.Trivia[idx]);
+", AgentConst.Trivia[idx]);
     }
 
     private void retryConnTimer_Tick(object sender, EventArgs e)
@@ -284,11 +344,13 @@ namespace BitShelter
         if (RetryCount % 12 == 0)
           DisplayNewTrivia();
 
-        if (RefreshDataGrid())
-        {
-          HideConnectionPanel();
-          return;
-        }
+        ConnectSnapshotClient();
+
+        //if (RefreshDataGrid())
+        //{
+        //  HideConnectionPanel();
+        //  return;
+        //}
       }
     }
   }

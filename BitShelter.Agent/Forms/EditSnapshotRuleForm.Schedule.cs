@@ -30,6 +30,9 @@ namespace BitShelter.Agent.Forms
       ChangeFreq(Freq.Daily);
       ChangeFreqWeekly(FreqWeekly.Weekly);
 
+      cbDailyFreqEveryExcluding.Checked = false;
+      ChangeDailyFreqEveryExcludingEnabled(false);
+
       llbFreqCronHelp.Links.Add(0, 0, "https://www.quartz-scheduler.net/documentation/quartz-3.x/tutorial/crontriggers.html");
       llbFreqCronGen.Links.Add(0, 0, "https://www.freeformatter.com/cron-expression-generator-quartz.html");
 
@@ -43,8 +46,8 @@ namespace BitShelter.Agent.Forms
 
       cblFreqMonthlyDays.SetItemChecked(0, true);
 
-      cbFreqCronLimit.Checked = false;
-      ChangeCronLimitEnabled(false);
+      cbFreqCronExcluding.Checked = false;
+      ChangeCronExcludingEnabled(false);
     }
 
     private void InitEditSchedule(SnapshotRule sched)
@@ -64,8 +67,9 @@ namespace BitShelter.Agent.Forms
         cbDailyFreqEvery.SelectedIndex = 0;
       }
 
-      dtpDailyFreqEveryStartAt.Value = sched.DailyFreqStart;
-      dtpDailyFreqEveryEndAt.Value = sched.DailyFreqEnd;
+      cbDailyFreqEveryExcluding.Checked = sched.DailyFreqEveryExcluding;
+      dtpDailyFreqEveryExcludingFrom.Value = sched.DailyFreqEveryExcludingFrom;
+      dtpDailyFreqEveryExcludingTo.Value = sched.DailyFreqEveryExcludingTo;
 
 
       // Frequency
@@ -86,9 +90,9 @@ namespace BitShelter.Agent.Forms
         cblFreqMonthlyDays.SetItemChecked(i, sched.FreqMonthlyDays.Contains(i));
 
       tbFreqCron.Text = sched.FreqCron;
-      cbFreqCronLimit.Enabled = sched.FreqCronDailyLimit;
-      dtpFreqCronStart.Value = sched.FreqCronDailyStart;
-      dtpFreqCronEnd.Value = sched.FreqCronDailyEnd;
+      cbFreqCronExcluding.Checked = sched.FreqCronDailyExcluding;
+      dtpFreqCronExcludingFrom.Value = sched.FreqCronDailyExcludingFrom;
+      dtpFreqCronExcludingTo.Value = sched.FreqCronDailyExcludingTo;
 
 
       // Period
@@ -126,6 +130,11 @@ namespace BitShelter.Agent.Forms
       ChangeDailyFreq(DailyFreq.Every);
     }
 
+    private void cbDailyFreqEveryExcluding_CheckedChanged(object sender, EventArgs e)
+    {
+      ChangeDailyFreqEveryExcludingEnabled(cbDailyFreqEveryExcluding.Checked);
+    }
+
     private void SelectDailyFreq(DailyFreq freq)
     {
       switch (freq)
@@ -148,10 +157,15 @@ namespace BitShelter.Agent.Forms
 
       nbDailyFreqEvery.Enabled = !once;
       cbDailyFreqEvery.Enabled = !once;
-      dtpDailyFreqEveryStartAt.Enabled = !once;
-      dtpDailyFreqEveryEndAt.Enabled = !once;
-      cbDailyFreqEveryInvert.Enabled = !once;
+      cbDailyFreqEveryExcluding.Enabled = !once;
 
+      RefreshUI();
+    }
+
+    private void ChangeDailyFreqEveryExcludingEnabled(bool enabled)
+    {
+      dtpDailyFreqEveryExcludingFrom.Enabled = dtpDailyFreqEveryExcludingTo.Enabled = enabled;
+      
       RefreshUI();
     }
 
@@ -240,15 +254,14 @@ namespace BitShelter.Agent.Forms
       RefreshUI();
     }
 
-    private void cbFreqCronLimit_CheckedChanged(object sender, EventArgs e)
+    private void cbFreqCronExcluding_CheckedChanged(object sender, EventArgs e)
     {
-      ChangeCronLimitEnabled(cbFreqCronLimit.Checked);
+      ChangeCronExcludingEnabled(cbFreqCronExcluding.Checked);
     }
 
-    private void ChangeCronLimitEnabled(bool enabled)
+    private void ChangeCronExcludingEnabled(bool enabled)
     {
-      dtpFreqCronStart.Enabled = dtpFreqCronEnd.Enabled = enabled;
-      cbFreqCronInvert.Enabled = enabled;
+      dtpFreqCronExcludingFrom.Enabled = dtpFreqCronExcludingTo.Enabled = enabled;
 
       RefreshUI();
     }
@@ -354,9 +367,9 @@ namespace BitShelter.Agent.Forms
       sched.DailyFreq = GetDailyFreq();
       sched.DailyFreqOnce = dtpDailyFreqOnce.Value;
       sched.DailyFreqEvery = (int)nbDailyFreqEvery.Value * (cbDailyFreqEvery.SelectedIndex == 0 ? 1 : 60);
-      sched.DailyFreqStart = dtpDailyFreqEveryStartAt.Value;
-      sched.DailyFreqEnd = dtpDailyFreqEveryEndAt.Value;
-      sched.DailyFreqInvert = cbDailyFreqEveryInvert.Checked;
+      sched.DailyFreqEveryExcluding = cbDailyFreqEveryExcluding.Checked;
+      sched.DailyFreqEveryExcludingFrom = dtpDailyFreqEveryExcludingFrom.Value;
+      sched.DailyFreqEveryExcludingTo = dtpDailyFreqEveryExcludingTo.Value;
         
       // Frequency
       sched.Freq = GetFreq();
@@ -367,10 +380,9 @@ namespace BitShelter.Agent.Forms
       sched.FreqMonthlyMonths = GetMonthlyMonths();
       sched.FreqMonthlyDays = GetMonthlyDays();
       sched.FreqCron = tbFreqCron.Text;
-      sched.FreqCronDailyLimit = cbFreqCronLimit.Checked;
-      sched.FreqCronDailyStart = dtpFreqCronStart.Value;
-      sched.FreqCronDailyEnd = dtpFreqCronEnd.Value;
-      sched.FreqCronDailyInvert = cbFreqCronInvert.Checked;
+      sched.FreqCronDailyExcluding = cbFreqCronExcluding.Checked;
+      sched.FreqCronDailyExcludingFrom = dtpFreqCronExcludingFrom.Value;
+      sched.FreqCronDailyExcludingTo = dtpFreqCronExcludingTo.Value;
 
       // Period
       sched.PeriodStart = dtpPeriodStart.Value;
@@ -475,7 +487,7 @@ namespace BitShelter.Agent.Forms
       if (rbDailyFreqOnce.Checked)
         return true;
 
-      if (dtpDailyFreqEveryEndAt.Value.TimeOfDay <= dtpDailyFreqEveryStartAt.Value.TimeOfDay)
+      if (dtpDailyFreqEveryExcludingTo.Value.TimeOfDay <= dtpDailyFreqEveryExcludingFrom.Value.TimeOfDay)
       {
         // Display error
         SetStyleInvalid(lblDailyFreqEveryStartAt, lblDailyFreqEveryEndAt);
@@ -558,7 +570,7 @@ namespace BitShelter.Agent.Forms
         // Restore font if necessary
         SetStyleValid(lblFreqCron);
 
-      if (!cbFreqCronLimit.Checked && dtpFreqCronEnd.Value <= dtpFreqCronStart.Value)
+      if (!cbFreqCronExcluding.Checked && dtpFreqCronExcludingTo.Value <= dtpFreqCronExcludingFrom.Value)
       {
         // Display error
         SetStyleInvalid(lblFreqCronStart, lblFreqCronEnd);

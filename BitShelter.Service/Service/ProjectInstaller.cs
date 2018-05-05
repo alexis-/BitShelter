@@ -34,7 +34,7 @@ namespace BitShelter.Service
           sc.Start();
         }
       }
-      catch (Exception ex)
+      catch (Exception)
       {
       }
 
@@ -51,7 +51,7 @@ namespace BitShelter.Service
             sc.Stop();
         }
       }
-      catch (Exception ex)
+      catch (Exception)
       {
       }
 
@@ -62,7 +62,7 @@ namespace BitShelter.Service
           p.Kill();
         }
       }
-      catch (Exception ex)
+      catch (Exception)
       {
       }
 

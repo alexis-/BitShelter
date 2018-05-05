@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BitShelter.Agent.Forms
 {
@@ -19,16 +21,7 @@ namespace BitShelter.Agent.Forms
       cbLifetime.DataSource = Enum.GetValues(typeof(Timespan));
       cbLifetime.SelectedIndex = cbLifetime.Items.IndexOf(Timespan.Week);
 
-      using (VssClient vss = new VssClient(new VssHost()))
-      {
-        vss.Initialize(VssSnapshotContext.ClientAccessible, VssBackupType.Incremental);
-
-        cblDriveLetters.Items.AddRange(
-          Volumes.ListVolumes()
-          .Where(v => vss.IsVolumeSupported(v.DeviceID))
-          .ToArray()
-        );
-      }
+      ListVSSVolumes();
     }
 
     public void InitEditGeneral(SnapshotRule rule)
@@ -55,13 +48,41 @@ namespace BitShelter.Agent.Forms
 
     private void btnSystemProtection_Click(object sender, EventArgs e)
     {
-      Process.Start("SystemPropertiesProtection.exe");
+      Task.Run(() =>
+      {
+        var p = Process.Start("SystemPropertiesProtection.exe");
+
+        p.WaitForExit();
+
+        SendOrPostCallback callback = new SendOrPostCallback(args =>
+        {
+          ListVSSVolumes();
+        });
+
+        SyncContext.Send(callback, null);
+      });
     }
 
 
 
     //
     // Misc
+    
+    private void ListVSSVolumes()
+    {
+      using (VssClient vss = new VssClient(new VssHost()))
+      {
+        vss.Initialize(VssSnapshotContext.ClientAccessible, VssBackupType.Incremental);
+
+        cblDriveLetters.Items.AddRange(
+          Volumes.ListVolumes()
+          .Where(v => vss.IsVolumeSupported(v.DeviceID))
+          .ToArray()
+        );
+
+        
+      }
+    }
 
     private void FillGeneral(SnapshotRule rule)
     {

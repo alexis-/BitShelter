@@ -20,13 +20,16 @@ namespace BitShelter.Service.Jobs
 
     public Task Execute(IJobExecutionContext context)
     {
+      // Quartz.NET seem to fire each Trigger once after scheduling them, regardless of their real fire time.
+      // This is an attempt to fix that issue.
+      if (context.PreviousFireTimeUtc == null)
+        return TaskConst.Completed;
+
       VssClient vss = null;
       int maxRetryCount = -1;
 
       try
       {
-        Log.Debug("Executing SnapshotJob for {RuleId}", RuleId);
-
         SnapshotRule rule = RuleMgr.Instance.GetRule(RuleId);
 
         if (rule == null)
@@ -35,6 +38,8 @@ namespace BitShelter.Service.Jobs
 
           throw new InvalidOperationException(String.Format("Failed to retrieve SnapshotRule {0}", RuleId));
         }
+
+        Log.Debug("Executing SnapshotJob for {rule.Name}", rule.Name);
 
         if (rule.Enabled == false) // Shouldn't happen expect in rare cases
           return TaskConst.Completed;
@@ -50,11 +55,11 @@ namespace BitShelter.Service.Jobs
         if (false && rule.BackupEnabled && rule.BackupRules != null && rule.BackupRules.Count > 0)
           ScheduleBackup(context.Scheduler);
 
-        Log.Debug("Completed SnapshotJob for {RuleName}", RuleId);
+        Log.Debug("Completed SnapshotJob for {RuleId}", RuleId);
       }
       catch (Exception ex)
       {
-        Log.Error(ex, "Failed SnapshotJob for {RuleName}", RuleId);
+        Log.Error(ex, "Failed SnapshotJob for {RuleId}", RuleId);
 
         Retry(ex, context.Scheduler, context.JobDetail, maxRetryCount);
 
@@ -74,12 +79,12 @@ namespace BitShelter.Service.Jobs
 
     protected void ScheduleBackup(IScheduler scheduler)
     {
-      Log.Debug("Scheduling BackupJob for {RuleName}", RuleId);
+      Log.Debug("Scheduling BackupJob for {RuleId}", RuleId);
 
       ITrigger backupTrigger = TriggerBuilder.Create()
         .ForJob(VssScheduler.BackupJob)
         .StartAt(DateTime.Now.AddSeconds(5))
-        .UsingJobData("RuleName", RuleId)
+        .UsingJobData("RuleId", RuleId)
         .Build();
 
       scheduler.ScheduleJob(backupTrigger).Wait();
@@ -89,13 +94,13 @@ namespace BitShelter.Service.Jobs
     {
       if (RetryCount < maxRetryCount)
       {
-        Log.Information("Retrying SnapshotJob for {RuleName} in 1 minute (attempt {RetryCount}/{MaxRetryCount})", RuleId, RetryCount, maxRetryCount);
+        Log.Information("Retrying SnapshotJob for {RuleId} in 1 minute (attempt {RetryCount}/{MaxRetryCount})", RuleId, RetryCount, maxRetryCount);
 
         ITrigger trigger = TriggerBuilder.Create()
           .WithIdentity(RuleId + " Retry " + RetryCount, "SnapshotJob")
           .ForJob(jobDetail)
           .StartAt(DateTime.Now.AddMinutes(1))
-          .UsingJobData("RuleName", RuleId)
+          .UsingJobData("RuleId", RuleId)
           .UsingJobData("RetryCount", ++RetryCount)
           .Build();
 

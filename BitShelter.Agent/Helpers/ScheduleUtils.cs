@@ -2,36 +2,27 @@
 using BitShelter.Models;
 using System;
 using System.Linq;
+using BitShelter.Data;
 
 namespace BitShelter.Agent.Helpers
 {
   static class ScheduleUtils
   {
-    public static string GetHumanizedSchedule(SnapshotRule sched)
+    public static string GetHumanizedSchedule(SnapshotRule rule)
     {
-      string descriptorCron = GenerateCron(sched, true);
+      string descriptorCron = GenerateCron(rule, true);
 
       string expr = ExpressionDescriptor.GetDescription(descriptorCron);
 
-      if (sched.Freq != Freq.Cron && sched.DailyFreq == DailyFreq.Every)
-        expr += String.Format(", Between {0} and {1}",
-          sched.DailyFreqInvert
-            ? sched.DailyFreqEnd.ToShortTimeString()
-            : sched.DailyFreqStart.ToShortTimeString(),
-          sched.DailyFreqInvert
-            ? sched.DailyFreqStart.ToShortTimeString()
-            : sched.DailyFreqEnd.ToShortTimeString()
-        );
+      if (rule.IsExcludingDayRange())
+      {
+        rule.GetExcludingDayRange(out DateTime from, out DateTime to);
 
-      else if (sched.Freq == Freq.Cron && sched.FreqCronDailyLimit)
-        expr += String.Format(", Between {0} and {1}",
-          sched.FreqCronDailyInvert
-            ? sched.FreqCronDailyEnd.ToShortTimeString()
-            : sched.FreqCronDailyStart.ToShortTimeString(),
-          sched.FreqCronDailyInvert
-            ? sched.FreqCronDailyStart.ToShortTimeString()
-            : sched.FreqCronDailyEnd.ToShortTimeString()
+        expr += String.Format(", Excluding from {0} to {1}",
+          from.ToShortTimeString(),
+          to.ToShortTimeString()
         );
+      }
 
       return expr;
     }

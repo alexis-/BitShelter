@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitShelter.Service", "BitShelter.Service\BitShelter.Service.csproj", "{D7BC620A-4FB7-4F45-8878-01E05D8DF9AA}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitShelter.Agent", "BitShelter.Agent\BitShelter.Agent.csproj", "{0CE528EC-8776-4C9E-96D7-74753F6B6CAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitShelter.Common", "BitShelter.Common\BitShelter.Common.csproj", "{51458C3D-1812-4A36-B00A-57592549C411}"
@@ -40,6 +42,15 @@ Global
 		{D7BC620A-4FB7-4F45-8878-01E05D8DF9AA}.Release|x64.Build.0 = Release|x64
 		{D7BC620A-4FB7-4F45-8878-01E05D8DF9AA}.Release|x86.ActiveCfg = Release|x86
 		{D7BC620A-4FB7-4F45-8878-01E05D8DF9AA}.Release|x86.Build.0 = Release|x86
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Debug|Any CPU.ActiveCfg = Debug
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Debug|x64.ActiveCfg = Debug
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Debug|x86.ActiveCfg = Debug
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Debug|x86.Build.0 = Debug
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Release|Any CPU.ActiveCfg = Release
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Release|x64.ActiveCfg = Release
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Release|x64.Build.0 = Release
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Release|x86.ActiveCfg = Release
+		{12EE9AF8-5A83-4B1F-A703-FC3CBD8AECFE}.Release|x86.Build.0 = Release
 		{0CE528EC-8776-4C9E-96D7-74753F6B6CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0CE528EC-8776-4C9E-96D7-74753F6B6CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CE528EC-8776-4C9E-96D7-74753F6B6CAF}.Debug|x64.ActiveCfg = Debug|x64
