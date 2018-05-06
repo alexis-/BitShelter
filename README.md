@@ -10,6 +10,7 @@ Have you **deleted** a file by mistake ? Modified a document and wish to **rever
 - [Screenshots](#screenshots)
 - [Features](#features)
 - [Limitations](#limitations)
+- [How does it work ?](#how-does-it-work-)
 - [Requirements](#requirements)
 - [Downloads](#downloads)
 - [Installation and Usage](#installation-and-usage)
@@ -34,8 +35,6 @@ List of defined Rules      |  New rule: Advanced
 
 
 ### Features
-
-[![](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Banner.png)](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.BannerFull.png)
 
 **Snapshots**: Keep a [version history](https://www.howtogeek.com/howto/11130/restore-previous-versions-of-files-in-every-edition-of-windows-7/) of your files
 - Revert file modifications
@@ -62,6 +61,17 @@ List of defined Rules      |  New rule: Advanced
 - [Manual one-time](#installation-and-usage) activation of Windows [System Protection](https://github.com/alexis-/BitShelter/raw/master/Resources/SystemPropertiesProtection_2018-05-05_13-10-18.png) on desired Drives
 
 If you know a work-around for these limitations, please let me know [here](https://github.com/alexis-/BitShelter/issues) or by [email](mailto:alexis@incogito.org)
+
+### How does it work ?
+
+[![](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Banner.png)](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.BannerFull.png)
+
+Operation        |  Result                   |  Location    |  Size        |  Speed
+:---------------:|:-------------------------:|:------------:|:------------:|:------------:
+**Snapshot**    |  This is *similar* to **Ctrl+Z** for files. Every time a snapshot is created, the system memorizes the content of your files. You can [browse](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/explorer_2018-05-04_18-00-38.png), [view and restore](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/explorer_2018-05-04_17-50-30.png) them to earlier versions. Note: Snapshots work even when files are locked by other Applications   |  Same drive as data  |  As much as the difference between each consecutive snapshot  |  Almost instantaneous
+**Backup**      |  This is *similar* to **Ctrl+C** and **Ctrl+V**: Backups create a *copy* of your files. They can be stored locally or remotely. You can optionaly archive them with compression (e.g. zip, tar.gz), and encrypt them. See [best practices](#best-practices) for recommendations  |  Local drive, Network drive, Removable device, ...  |  At most as much as the data, less if compressed  |  Minutes to hours depending on size, disk speed, compression, encryption
+**Cloud sync**  |  While *BitShelter* knows nothing about Cloud Storage, you can use backups to create copies of your work in Sync folders of popular providers. They will in turn be sent to your space on the Cloud  |  In the cloud  |  As much as backups, only counting toward your Cloud Storage space  |  Minutes to hours, depending on size, upload speed
+
 
 ### Requirements
 
