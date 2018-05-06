@@ -35,6 +35,8 @@ List of defined Rules      |  New rule: Advanced
 
 ### Features
 
+[![](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Banner.png)](https://github.com/alexis-/BitShelter/blob/master/Resources/BitShelter.BannerFull.png)
+
 **Snapshots**: Keep a [version history](https://www.howtogeek.com/howto/11130/restore-previous-versions-of-files-in-every-edition-of-windows-7/) of your files
 - Revert file modifications
 - Restore deleted files
