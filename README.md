@@ -57,7 +57,7 @@ List of defined Rules      |  New rule: Advanced
 ### Limitations
 
 - Up to [512 Snapshots](https://msdn.microsoft.com/en-us/library/bb891959.aspx?#maxshadowcopies) per Drive
-- Encryption only works with Archives
+- Encryption only work when combined with Archives
 - [Manual one-time](#installation-and-usage) activation of Windows [System Protection](https://github.com/alexis-/BitShelter/raw/master/Resources/SystemPropertiesProtection_2018-05-05_13-10-18.png) on desired Drives
 
 If you know a work-around for these limitations, please let me know [here](https://github.com/alexis-/BitShelter/issues) or by [email](mailto:alexis@incogito.org)
