@@ -148,6 +148,7 @@ Todo
 
 I would like to emphasize on the importance of their contribution, and extend my gratitude especially to (but not limited to):
 * *Peter Palotas* for his **incredible** [AlphaVSS](https://github.com/alphaleonis/AlphaVSS) (central piece of *BitShelter*)
+* *Faan* for her **amazing** [banner](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.BannerFull.png). She's open to new opportunities, if you're looking for talented designers please contact me [by email](mailto:alexis@incogito.org) !
 * (todo)
 
 All required licenses can be found at the root of this project repository.
