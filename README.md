@@ -1,6 +1,6 @@
 ## BitShelter
 
-*BitShelter* is software that builds on [Microsoft's VSS technology](https://en.wikipedia.org/wiki/Shadow_Copy) to keep a version history of your files, and make external backups of them.
+*BitShelter* a is software that builds on [Microsoft's VSS technology](https://en.wikipedia.org/wiki/Shadow_Copy) to keep a version history of your files, and make external backups of them.
 
 Have you **deleted** a file by mistake ? Modified a document and wish to **revert** the **changes** ? Has one of your **drive failed** ? *BitShelter* has got you covered in all these cases !
 
