@@ -14,6 +14,7 @@ Have you **deleted** a file by mistake ? Modified a document and wish to **rever
 - [Requirements](#requirements)
 - [Downloads](#downloads)
 - [Installation and Usage](#installation-and-usage)
+- [Upgrading](#upgrading)
 - [Best Practices](#best-practices)
 - [FAQ](#faq)
 - [Glossary](#glossary)
@@ -84,7 +85,7 @@ Operation        |  Result                   |  Location    |  Size        |  Sp
 
 [**All releases**](https://github.com/alexis-/BitShelter/releases)
 
-[**Latest version (installer)**](https://github.com/alexis-/BitShelter/releases/download/0.1-alpha/BitShelter_v0.1-alpha_Setup.msi)
+[**Latest version (installer)**](https://github.com/alexis-/BitShelter/releases/download/0.1b-alpha/BitShelter_v0.1b-alpha_Setup.msi)
 
 ![](https://github.com/alexis-/BitShelter/raw/master/Resources/warning_24.png) **Make sure to follow the instructions** about ***System Protection*** and ***Raise limit***, see [Installation and Usage](#installation-and-usage)
 
@@ -102,6 +103,12 @@ Operation        |  Result                   |  Location    |  Size        |  Sp
     * Set the desired schedule for your Snapshots in the [Schedule tab](https://github.com/alexis-/BitShelter/raw/master/Resources/BitShelter.Agent_Schedule.png)
     * Press the **Create** button
     * To make sure your settings are correct, [verify the snapshots](https://www.howtogeek.com/howto/11130/restore-previous-versions-of-files-in-every-edition-of-windows-7/) are properly created on selected Drives
+
+### Upgrading
+
+*BitShelter* cannot Auto-Update itself yet. To upgrade to a newer version, please uninstall the existing application, and run the installer for the new version.
+
+All your settings, snapshots and logs will be preversed.
 
 ### Best practices
 
