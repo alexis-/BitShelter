@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <?include Vars.wxi ?>
+
+  <Fragment>
+    
+
+    <ComponentGroup Id="ProductComponents">
+
+      <!-- Shortcut -->
+      <ComponentRef Id="MainAppShortcut" />
+      <ComponentRef Id="BitShelter.Agent.exe"/>
+      <ComponentRef Id="BitShelter.Agent.exe.config"/>
+      <ComponentRef Id="BitShelter.Service.exe"/>
+      <ComponentRef Id="BitShelter.Service.exe.config"/>
+
+    </ComponentGroup>
+
+    
+
+    <!-- Installed files -->
+    <DirectoryRef Id="INSTALLFOLDER" FileSource="$(var.SourceDir)">
+      <!-- Shortcut to main application -->
+      <Component Id="MainAppShortcut" Guid="{7CDAD5BC-F2AC-4E37-9EB6-8F63899A0FA5}">
+
+        <Shortcut Id="MainAppShortcut"
+                  Name="$(var.ProductName)"
+                  Target="[INSTALLFOLDER]BitShelter.Agent.exe"
+                  Directory="InstallProgramMenuFolder"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="icon.ico" />
+
+        <!-- Our unique key for this component/shortcut -->
+        <RegistryValue Id="RegShortcutKey" Root="HKCU" Key="SOFTWARE\!(loc.ProductNameFolder)" Name="Shortcut" Value="1" Type="integer" KeyPath="yes" />
+
+        <!--Remove start menu items -->
+        <RemoveFolder Id="RemoveStartMenu" Directory="InstallProgramMenuFolder" On="uninstall" />
+
+      </Component>
+
+      <Component Id="BitShelter.Agent.exe" Guid="{F73DE5B3-AFBB-4F15-8517-3C1B2FA9061C}" Win64="$(var.Win64)" >
+
+        <File Id="BitShelter.Agent.exe" Source="$(var.SourceDir)\BitShelter.Agent.exe" KeyPath="yes" Checksum="yes" />
+
+      </Component>
+
+      <Component Id="BitShelter.Agent.exe.config" Guid="{E2D207C1-4A06-4547-8F76-73C987F334F3}" Win64="$(var.Win64)" >
+
+        <File Id="BitShelter.Agent.exe.config" Source="$(var.SourceDir)\BitShelter.Agent.exe.config" KeyPath="yes" />
+
+      </Component>
+
+      <Component Id="BitShelter.Service.exe" Guid="{7F53E794-E4D0-4CED-8AA4-58AA3DEF6EC7}" Win64="$(var.Win64)" >
+
+        <File Id="BitShelter.Service.exe" Source="$(var.SourceDir)\BitShelter.Service.exe" KeyPath="yes" Checksum="yes" />
+
+        <ServiceInstall Name="!(loc.ProductNameFolder)"
+                        DisplayName="!(loc.ProductNameFolder)"
+                        ErrorControl="ignore"
+                        Type="ownProcess"
+                        Vital="yes"
+                        Start="auto"
+                        Interactive="no" />
+
+        <ServiceControl Id="ServiceControl_!(loc.ProductNameFolder)"
+                        Name="!(loc.ProductNameFolder)"
+                        Start="install"
+                        Stop="both"
+                        Remove="uninstall"
+                        Wait="yes" />
+
+      </Component>
+
+      <Component Id="BitShelter.Service.exe.config" Guid="{04C3E466-741E-4B31-A83E-5AC654CA4135}" Win64="$(var.Win64)" >
+        <File Id="BitShelter.Service.exe.config" Source="$(var.SourceDir)\BitShelter.Service.exe.config" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+
+  </Fragment>
+
+</Wix>

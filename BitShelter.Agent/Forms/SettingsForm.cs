@@ -6,6 +6,7 @@ using BitShelter.WCF;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using System;
+using System.ComponentModel;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,8 +38,7 @@ namespace BitShelter
 
     public static void CloseInstance()
     {
-      if (_instance != null)
-        _instance.Close();
+      _instance?.Close();
     }
 
 
@@ -48,11 +48,10 @@ namespace BitShelter
     /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
     protected override void Dispose(bool disposing)
     {
-      if (disposing && (components != null))
-      {
-        components.Dispose();
-      }
+      if (disposing)
+        components?.Dispose();
 
+      CleanupSnapshotClient();
       _instance = null;
 
       base.Dispose(disposing);
@@ -225,7 +224,7 @@ namespace BitShelter
 
     public void Dummy() { }
 
-    private void SetupSnapshotClient()
+    private void CleanupSnapshotClient()
     {
       if (SnapshotClient != null)
       {
@@ -240,6 +239,11 @@ namespace BitShelter
         {
         }
       }
+    }
+
+    private void SetupSnapshotClient()
+    {
+      CleanupSnapshotClient();
 
       SnapshotClient = new SnapshotClient(new InstanceContext(this));
       

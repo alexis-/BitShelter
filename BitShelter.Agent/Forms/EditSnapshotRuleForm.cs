@@ -256,7 +256,7 @@ namespace BitShelter.Agent.Forms
 
     private void ValidateSnapshot()
     {
-      Valid = RuleName == tbName.Text ? true : ValidateName();
+      Valid = RuleName == tbName.Text || ValidateName();
       Valid = ValidateSchedule() && Valid;
     }
 

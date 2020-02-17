@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?include Vars.wxi ?>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <Directory Id="WindowsFolder" Name="WINDOWS"/>
+
+      <!-- Start Menu -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="InstallProgramMenuFolder" Name="!(loc.ProductNameFolder)" />
+      </Directory>
+
+      <!-- Program Files (32/64bit) folder -->
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <Directory Id="INSTALLFOLDER" Name="!(loc.ProductNameFolder)" />
+      </Directory>
+
+    </Directory>
+  </Fragment>
+
+</Wix>

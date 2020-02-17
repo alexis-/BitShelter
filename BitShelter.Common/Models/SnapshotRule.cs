@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace BitShelter.Models
 {
@@ -20,7 +18,7 @@ namespace BitShelter.Models
 
     public override bool Equals(object obj)
     {
-      if (obj == null || !(obj is SnapshotRule))
+      if (!(obj is SnapshotRule))
         return false;
 
       return Id.Equals(((SnapshotRule)obj).Id);
@@ -33,7 +31,7 @@ namespace BitShelter.Models
 
     public override string ToString()
     {
-      return String.Format("[#{1}] {0}: {2}", Name, Id, ScheduleDescription);
+      return $"[#{Id}] {Name}: {ScheduleDescription}";
     }
   }
 }

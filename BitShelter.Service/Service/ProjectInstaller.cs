@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitShelter.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +21,74 @@ namespace BitShelter.Service
       InitializeComponent();
     }
 
-    protected override void OnAfterInstall(IDictionary savedState)
+    protected override void OnBeforeInstall(IDictionary savedState)
     {
-      base.OnAfterInstall(savedState);
+      StopAndRemoveService();
+      StopAgent();
+
+      base.OnBeforeInstall(savedState);
     }
 
     protected override void OnCommitted(IDictionary savedState)
+    {
+      StartAgent();
+
+      base.OnCommitted(savedState);
+    }
+
+    protected override void OnBeforeUninstall(IDictionary savedState)
+    {
+      StopService();
+      StopAgent();
+      RemoveAgentAutoStartTask();
+
+      base.OnBeforeUninstall(savedState);
+    }
+
+    private ServiceController GetService()
+    {
+      return new ServiceController(serviceInstaller.ServiceName);
+    }
+
+    private void StopService()
+    {
+      try
+      {
+        var svc = GetService();
+
+        if (svc != null)
+        {
+          if (svc.Status != ServiceControllerStatus.Stopped)
+            svc.Stop();
+        }
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    private void StopAndRemoveService()
+    {
+      try
+      {
+        var svc = GetService();
+
+        if (svc != null)
+        {
+          if (svc.Status != ServiceControllerStatus.Stopped)
+            svc.Stop();
+
+          var svcInstaller = new ServiceInstaller();
+          svcInstaller.ServiceName = serviceInstaller.ServiceName;
+          svcInstaller.Uninstall(null);
+        }
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    private void StartAgent()
     {
       try
       {
@@ -37,36 +100,34 @@ namespace BitShelter.Service
       catch (Exception)
       {
       }
-
-      base.OnCommitted(savedState);
     }
 
-    protected override void OnBeforeUninstall(IDictionary savedState)
+    private void StopAgent()
     {
-      try
-      {
-        using (var sc = new ServiceController(serviceInstaller.ServiceName))
-        {
-          if (sc.Status != ServiceControllerStatus.Stopped)
-            sc.Stop();
-        }
-      }
-      catch (Exception)
-      {
-      }
+      var runningAgents = Process.GetProcessesByName("BitShelter.Agent"); // There should be only one
 
-      try
+      foreach (var p in runningAgents)
       {
-        foreach (var p in Process.GetProcessesByName("BitShelter.Agent"))
+        try
         {
           p.Kill();
         }
+        catch (Exception)
+        {
+        }
       }
-      catch (Exception)
+    }
+
+    private void RemoveAgentAutoStartTask()
+    {
+      try
+      {
+        if (InstallUtils.TaskExists(Const.AppName))
+          InstallUtils.DeleteStartupTask(Const.AppName);
+      }
+      catch (Exception ex)
       {
       }
-
-      base.OnBeforeUninstall(savedState);
     }
   }
 }

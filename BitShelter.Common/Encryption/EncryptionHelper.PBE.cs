@@ -77,7 +77,7 @@ namespace BitShelter.Encryption
       }
     }
 
-    protected class PBEAlgorithmDesc
+    class PBEAlgorithmDesc
     {
       public PBEAlgorithmDesc(string alg, string baseAlg, Func<IDigest> digGen, int keySize, int ivSize)
       {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <?if $(var.Platform) = x64 ?>
+    <?define ProductName = "BitShelter (64bit)" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+    <?define SystemDir = "[System64Folder]"?>
+    <?define Win64 = "yes" ?>
+  <?else?>
+    <?define ProductName = "BitShelter (32bit)" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+    <?define SystemDir = "[SystemFolder]"?>
+    <?define Win64 = "no" ?>
+  <?endif?>
+
+  <?define SourceDir = "$(var.ProjectDir)Deploy" ?>
+
+</Include>

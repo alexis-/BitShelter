@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Bundle Name="BitShelter.Setup.Bootstrapper" Version="1.0.0.0" Manufacturer=""
+          UpgradeCode="394d2db2-8c29-45f4-bf8d-61a9f916383f">
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+    <Chain>
+      <PackageGroupRef Id="NetFx461Web" />
+      <MsiPackage SourceFile="..\BitShelter.Setup\bin\BinShelter.exe" />
+    </Chain>
+  </Bundle>
+</Wix>

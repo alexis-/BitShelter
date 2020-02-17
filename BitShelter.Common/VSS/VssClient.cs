@@ -134,7 +134,15 @@ namespace BitShelter.VSS
 
     public bool IsVolumeSupported(string volumeName)
     {
-      return m_backupComponents.IsVolumeSupported(volumeName);
+      try
+      {
+        return m_backupComponents.IsVolumeSupported(volumeName);
+      }
+      catch (Exception ex)
+      {
+        Host.WriteWarning(ex.Message);
+        return false;
+      }
     }
 
     public IEnumerable<Guid> CreateSnapshot(IEnumerable<string> volumeList, string outputXmlFile, IEnumerable<string> excludedWriterList, IEnumerable<string> includedWriterList)

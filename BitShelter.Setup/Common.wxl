@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+
+  <String Id="ProductNameFolder">BitShelter</String>
+
+  <String Id="Description">Snapshots and Backups</String>
+  <String Id="Url">https://github.com/alexis-/BitShelter</String>
+</WixLocalization>
