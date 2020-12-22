@@ -147,6 +147,9 @@ If you wish you automatically run *BitShelter Agent* when your computer starts:
 2. Right-click on its **Tray Icon**
 3. Make sure **Run at startup** is Checked.
 
+- *Issues when running within Windows on MacOS' Bootcamp*
+
+Most of these issues can be fixed by following [this guide](https://www.edandersen.com/2015/07/06/windows-10-on-mac-bootcamp-fixes/) (section *System Restore, Restore Points and Windows 7 style backups do not work*).
 
 - *Connection to the service failed*: What to do ?
 
@@ -167,6 +170,7 @@ Todo
 I would like to emphasize on the importance of their contribution, and extend my gratitude especially to (but not limited to):
 * *Peter Palotas* for his **incredible** [AlphaVSS](https://github.com/alphaleonis/AlphaVSS) (central piece of *BitShelter*)
 * *Faan* for her **amazing** [banner](https://raw.githubusercontent.com/alexis-/BitShelter/master/Resources/BitShelter.BannerFull.png). She's open to new opportunities, if you're looking for talented designers please contact me [by email](mailto:alexis@incogito.org) !
+* *@Zelss* for figuring out how to configure Bootcamp
 * (todo)
 
 All required licenses can be found at the root of this project repository.
