@@ -85,7 +85,7 @@ Operation        |  Result                   |  Location    |  Size        |  Sp
 
 [**All releases**](https://github.com/alexis-/BitShelter/releases)
 
-[**Latest version (installer)**](https://github.com/alexis-/BitShelter/releases/download/0.1b-alpha/BitShelter_v0.1b-alpha_Setup.msi)
+[**Latest version (installer)**](https://github.com/alexis-/BitShelter/releases/download/0.1c-beta/BitShelterSetup-0.1.3.msi)
 
 ![](https://github.com/alexis-/BitShelter/raw/master/Resources/warning_24.png) **Make sure to follow the instructions** about ***System Protection*** and ***Raise limit***, see [Installation and Usage](#installation-and-usage)
 
